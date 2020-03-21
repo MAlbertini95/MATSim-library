@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<counts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://matsim.org/files/dtd/counts_v1.xsd"
+		name="Counts" desc="Traffico rilevato alle sezioni usate nel PUM2010 di Trento, più rilievi in punti fissi"
+		year="2007" layer="0">
+	<!-- in a equilibrium state, there should be the same amount of vehicles
+		 on the 9 alternative routes.  100 vehicles / 9 routes = 11.1 veh/route -->
+	<count loc_id="9852" cs_id="1_Marconi_out">
+		<volume h="8" val="283" />
+		<volume h="9" val="283" />
+		<volume h="18" val="344" />
+		<volume h="19" val="344" />
+	</count>
+	<count loc_id="9853" cs_id="1_MARCONI_in">
+		<volume h="8" val="257" />
+		<volume h="9" val="257" />
+		<volume h="18" val="287" />
+		<volume h="19" val="287" />
+	</count>
+	<count loc_id="10462" cs_id="1_BRENNERO_Nord_in">
+		<volume h="8" val="1018" />
+		<volume h="9" val="1018" />
+		<volume h="18" val="1034" />
+		<volume h="19" val="1034" />
+	</count>
+	<count loc_id="429" cs_id="1_Brennero_Nord_out">
+		<volume h="8" val="1041" />
+		<volume h="9" val="1041" />
+		<volume h="18" val="997" />
+		<volume h="19" val="997" />
+	</count>
+	<count loc_id="10463" cs_id="1_Brennero_Sud_out">
+		<volume h="8" val="846" />
+		<volume h="9" val="846" />
+		<volume h="18" val="801" />
+		<volume h="19" val="801" />
+	</count>
+	<count loc_id="426" cs_id="1_Brennero_Sud_in">
+		<volume h="8" val="895" />
+		<volume h="9" val="895" />
+		<volume h="18" val="821" />
+		<volume h="19" val="821" />
+	</count>
+		<count loc_id="10464" cs_id="2_Ambrosi_in">
+		<volume h="8" val="899" />
+		<volume h="9" val="899" />
+		<volume h="18" val="1274" />
+		<volume h="19" val="1274" />
+	</count>
+		<count loc_id="6946" cs_id="2_Fontana_in">
+		<volume h="8" val="790" />
+		<volume h="9" val="790" />
+		<volume h="18" val="624" />
+		<volume h="19" val="624" />
+	</count>
+		<count loc_id="6945" cs_id="2_Fontana_out">
+		<volume h="8" val="274" />
+		<volume h="9" val="274" />
+		<volume h="18" val="494" />
+		<volume h="19" val="494" />
+	</count>
+		<count loc_id="7814" cs_id="2_Centa_out">
+		<volume h="8" val="742" />
+		<volume h="9" val="742" />
+		<volume h="18" val="847" />
+		<volume h="19" val="847" />
+	</count>
+		<count loc_id="2388" cs_id="2_Segantini_out">
+		<volume h="8" val="673" />
+		<volume h="9" val="673" />
+		<volume h="18" val="557" />
+		<volume h="19" val="557" />
+	</count>
+		<count loc_id="4655" cs_id="3_Pozzo_SUD_out">
+		<volume h="8" val="101" />
+		<volume h="9" val="101" />
+		<volume h="18" val="67" />
+		<volume h="19" val="67" />
+	</count>
+		<count loc_id="3485" cs_id="3_Pozzo1_NORD_in">
+		<volume h="8" val="462" />
+		<volume h="9" val="462" />
+		<volume h="18" val="538" />
+		<volume h="19" val="538" />
+	</count>
+		<count loc_id="5498" cs_id="3_Pozzo2_NORD_in">
+		<volume h="8" val="206" />
+		<volume h="9" val="206" />
+		<volume h="18" val="306" />
+		<volume h="19" val="306" />
+	</count>
+		<count loc_id="1925" cs_id="3_TorreVanga_OVEST_in">
+		<volume h="8" val="516" />
+		<volume h="9" val="516" />
+		<volume h="18" val="506" />
+		<volume h="19" val="506" />
+	</count>
+		<count loc_id="1924" cs_id="3_TorreVanga_OVEST_out">
+		<volume h="8" val="386" />
+		<volume h="9" val="386" />
+		<volume h="18" val="472" />
+		<volume h="19" val="472" />
+	</count>
+		<count loc_id="605" cs_id="3_TorreVanga_EST_out">
+		<volume h="8" val="697" />
+		<volume h="9" val="697" />
+		<volume h="18" val="811" />
+		<volume h="19" val="811" />
+	</count>
+		<count loc_id="1436" cs_id="4_Rosmini_NORD_in">
+		<volume h="8" val="374" />
+		<volume h="9" val="374" />
+		<volume h="18" val="438" />
+		<volume h="19" val="438" />
+	</count>
+		<count loc_id="1437" cs_id="4_Rosmini_NORD_out">
+		<volume h="8" val="478" />
+		<volume h="9" val="478" />
+		<volume h="18" val="412" />
+		<volume h="19" val="412" />
+	</count>
+		<count loc_id="11349" cs_id="4_Verdi_OVEST_out">
+		<volume h="8" val="225" />
+		<volume h="9" val="225" />
+		<volume h="18" val="185" />
+		<volume h="19" val="185" />
+	</count>
+		<count loc_id="11350" cs_id="4_Verdi_OVEST_in">
+		<volume h="8" val="362" />
+		<volume h="9" val="362" />
+		<volume h="18" val="284" />
+		<volume h="19" val="284" />
+	</count>
+		<count loc_id="1439" cs_id="4_Rosmini_SUD_in">
+		<volume h="8" val="522" />
+		<volume h="9" val="522" />
+		<volume h="18" val="402" />
+		<volume h="19" val="402" />
+	</count>
+		<count loc_id="1438" cs_id="4_Rosmini_SUD_out">
+		<volume h="8" val="555" />
+		<volume h="9" val="555" />
+		<volume h="18" val="527" />
+		<volume h="19" val="527" />
+	</count>
+		<count loc_id="1415" cs_id="5_Giusti_NORD_in">
+		<volume h="8" val="368" />
+		<volume h="9" val="368" />
+		<volume h="18" val="505" />
+		<volume h="19" val="505" />
+	</count>
+		<count loc_id="1416" cs_id="5_Giusti_NORD_out">
+		<volume h="8" val="735" />
+		<volume h="9" val="735" />
+		<volume h="18" val="680" />
+		<volume h="19" val="680" />
+	</count>
+		<count loc_id="11429" cs_id="5_Giusti_SUD_in">
+		<volume h="8" val="371" />
+		<volume h="9" val="371" />
+		<volume h="18" val="326" />
+		<volume h="19" val="326" />
+	</count>
+		<count loc_id="8190" cs_id="5_Giusti_SUD_out">
+		<volume h="8" val="714" />
+		<volume h="9" val="714" />
+		<volume h="18" val="894" />
+		<volume h="19" val="894" />
+	</count>
+		<count loc_id="7938" cs_id="5_Perini_in">
+		<volume h="8" val="710" />
+		<volume h="9" val="710" />
+		<volume h="18" val="743" />
+		<volume h="19" val="743" />
+	</count>
+		<count loc_id="4855" cs_id="6_DeGasperi_OVEST_in">
+		<volume h="8" val="792" />
+		<volume h="9" val="792" />
+		<volume h="18" val="801" />
+		<volume h="19" val="801" />
+	</count>
+		<count loc_id="4856" cs_id="6_DeGasperi_OVEST_out">
+		<volume h="8" val="873" />
+		<volume h="9" val="873" />
+		<volume h="18" val="742" />
+		<volume h="19" val="742" />
+	</count>
+		<count loc_id="9367" cs_id="6_DeFasperi_EST_in">
+		<volume h="8" val="540" />
+		<volume h="9" val="540" />
+		<volume h="18" val="609" />
+		<volume h="19" val="609" />
+	</count>
+		<count loc_id="9368" cs_id="6_DeGasperi_EST_out">
+		<volume h="8" val="478" />
+		<volume h="9" val="478" />
+		<volume h="18" val="470" />
+		<volume h="19" val="470" />
+	</count>
+		<count loc_id="9359" cs_id="6_Frank_in">
+		<volume h="8" val="153" />
+		<volume h="9" val="153" />
+		<volume h="18" val="82" />
+		<volume h="19" val="82" />
+	</count>
+		<count loc_id="9360" cs_id="6_Frank_out">
+		<volume h="8" val="209" />
+		<volume h="9" val="209" />
+		<volume h="18" val="161" />
+		<volume h="19" val="161" />
+	</count>
+		<count loc_id="9362" cs_id="6_deFinetti_in">
+		<volume h="8" val="107" />
+		<volume h="9" val="107" />
+		<volume h="18" val="66" />
+		<volume h="19" val="66" />
+	</count>
+		<count loc_id="9363" cs_id="6_deFinetti_out">
+		<volume h="8" val="67" />
+		<volume h="9" val="67" />
+		<volume h="18" val="109" />
+		<volume h="19" val="109" />
+	</count>
+		<count loc_id="2607" cs_id="6_Gandhi_in">
+		<volume h="8" val="343" />
+		<volume h="9" val="343" />
+		<volume h="18" val="226" />
+		<volume h="19" val="226" />
+	</count>
+		<count loc_id="2608" cs_id="6_Ghandi_out">
+		<volume h="8" val="308" />
+		<volume h="9" val="308" />
+		<volume h="18" val="302" />
+		<volume h="19" val="302" />
+	</count>
+		<count loc_id="6146" cs_id="7_Menguzzato_OVEST_in">
+		<volume h="8" val="326" />
+		<volume h="9" val="326" />
+		<volume h="18" val="676" />
+		<volume h="19" val="676" />
+	</count>
+		<count loc_id="6175" cs_id="7_Menguzzato_OVEST_out">
+		<volume h="8" val="586" />
+		<volume h="9" val="586" />
+		<volume h="18" val="301" />
+		<volume h="19" val="301" />
+	</count>
+		<count loc_id="6180" cs_id="7_Menguzzato_EST_in">
+		<volume h="8" val="907" />
+		<volume h="9" val="907" />
+		<volume h="18" val="458" />
+		<volume h="19" val="458" />
+	</count>
+		<count loc_id="6181" cs_id="7_Menguzzato_EST_out">
+		<volume h="8" val="447" />
+		<volume h="9" val="447" />
+		<volume h="18" val="826" />
+		<volume h="19" val="826" />
+	</count>
+		<count loc_id="6176" cs_id="7_Mach_in">
+		<volume h="8" val="160" />
+		<volume h="9" val="160" />
+		<volume h="18" val="175" />
+		<volume h="19" val="175" />
+	</count>
+		<count loc_id="5054" cs_id="7_Mach_out">
+		<volume h="8" val="360" />
+		<volume h="9" val="360" />
+		<volume h="18" val="182" />
+		<volume h="19" val="182" />
+	</count>
+		<count loc_id="4131" cs_id="8_Verona_NORD_in">
+		<volume h="8" val="674" />
+		<volume h="9" val="674" />
+		<volume h="18" val="679" />
+		<volume h="19" val="679" />
+	</count>
+		<count loc_id="4130" cs_id="8_Verona_NORD_out">
+		<volume h="8" val="888" />
+		<volume h="9" val="888" />
+		<volume h="18" val="802" />
+		<volume h="19" val="802" />
+	</count>
+		<count loc_id="4008" cs_id="8_Einaudi_in">
+		<volume h="8" val="373" />
+		<volume h="9" val="373" />
+		<volume h="18" val="325" />
+		<volume h="19" val="325" />
+	</count>
+		<count loc_id="4009" cs_id="8_Einaudi_out">
+		<volume h="8" val="214" />
+		<volume h="9" val="214" />
+		<volume h="18" val="195" />
+		<volume h="19" val="195" />
+	</count>
+		<count loc_id="3892" cs_id="8_Verona_SUD_in">
+		<volume h="8" val="634" />
+		<volume h="9" val="634" />
+		<volume h="18" val="575" />
+		<volume h="19" val="575" />
+	</count>
+		<count loc_id="3893" cs_id="8_Verona_SUD_out">
+		<volume h="8" val="579" />
+		<volume h="9" val="579" />
+		<volume h="18" val="582" />
+		<volume h="19" val="582" />
+	</count>
+		<count loc_id="8187" cs_id="9_III Novembre_OVEST_in">
+		<volume h="8" val="270" />
+		<volume h="9" val="270" />
+		<volume h="18" val="378" />
+		<volume h="19" val="378" />
+	</count>
+		<count loc_id="8188" cs_id="9_III Novembre_OVEST_out">
+		<volume h="8" val="758" />
+		<volume h="9" val="758" />
+		<volume h="18" val="604" />
+		<volume h="19" val="604" />
+	</count>
+		<count loc_id="11392" cs_id="9_II Novembre_EST_in">
+		<volume h="8" val="512" />
+		<volume h="9" val="512" />
+		<volume h="18" val="410" />
+		<volume h="19" val="410" />
+	</count>
+		<count loc_id="11391" cs_id="9_III Novembre_EST_out">
+		<volume h="8" val="714" />
+		<volume h="9" val="714" />
+		<volume h="18" val="843" />
+		<volume h="19" val="843" />
+	</count>
+		<count loc_id="8247" cs_id="9_Milano_in">
+		<volume h="8" val="240" />
+		<volume h="9" val="240" />
+		<volume h="18" val="198" />
+		<volume h="19" val="198" />
+	</count>
+		<count loc_id="8248" cs_id="9_Milano_out">
+		<volume h="8" val="178" />
+		<volume h="9" val="178" />
+		<volume h="18" val="216" />
+		<volume h="19" val="216" />
+	</count>
+		<count loc_id="2708" cs_id="9_Veneto_in">
+		<volume h="8" val="628" />
+		<volume h="9" val="628" />
+		<volume h="18" val="677" />
+		<volume h="19" val="677" />
+	</count>
+		<count loc_id="7993" cs_id="9_Veneto1_in">
+		<volume h="8" val="345" />
+		<volume h="9" val="345" />
+		<volume h="18" val="575" />
+		<volume h="19" val="575" />
+	</count>
+		<count loc_id="3134" cs_id="9_Veneto2_in">
+		<volume h="8" val="283" />
+		<volume h="9" val="283" />
+		<volume h="18" val="297" />
+		<volume h="19" val="297" />
+	</count>
+		<count loc_id="6584" cs_id="10_BrigataAcqui_NORD_out">
+		<volume h="8" val="436" />
+		<volume h="9" val="436" />
+		<volume h="18" val="574" />
+		<volume h="19" val="574" />
+	</count>
+		<count loc_id="8675" cs_id="10_Barbacovi_OVEST_in">
+		<volume h="8" val="1311" />
+		<volume h="9" val="1311" />
+		<volume h="18" val="1352" />
+		<volume h="19" val="1352" />
+	</count>
+		<count loc_id="7011" cs_id="10_BrigataAcqui_SUD_in">
+		<volume h="8" val="344" />
+		<volume h="9" val="344" />
+		<volume h="18" val="444" />
+		<volume h="19" val="444" />
+	</count>
+		<count loc_id="7010" cs_id="10_BrigataAcqui_SUD_out">
+		<volume h="8" val="618" />
+		<volume h="9" val="618" />
+		<volume h="18" val="620" />
+		<volume h="19" val="620" />
+	</count>
+		<count loc_id="2283" cs_id="10_Barbacovi_EST_out">
+		<volume h="8" val="601" />
+		<volume h="9" val="601" />
+		<volume h="18" val="602" />
+		<volume h="19" val="602" />
+	</count>
+		<count loc_id="7812" cs_id="11_Cervara_in">
+		<volume h="8" val="555" />
+		<volume h="9" val="555" />
+		<volume h="18" val="354" />
+		<volume h="19" val="354" />
+	</count>
+		<count loc_id="7813" cs_id="11_Cervara_out">
+		<volume h="8" val="178" />
+		<volume h="9" val="178" />
+		<volume h="18" val="279" />
+		<volume h="19" val="279" />
+	</count>
+		<count loc_id="7933" cs_id="11_PzzaVenezia_in">
+		<volume h="8" val="374" />
+		<volume h="9" val="374" />
+		<volume h="18" val="714" />
+		<volume h="19" val="714" />
+	</count>
+		<count loc_id="7932" cs_id="11_PzzaVenezia_out">
+		<volume h="8" val="1058" />
+		<volume h="9" val="1058" />
+		<volume h="18" val="770" />
+		<volume h="19" val="770" />
+	</count>
+		<count loc_id="8598" cs_id="11_Venezia_in">
+		<volume h="8" val="514" />
+		<volume h="9" val="514" />
+		<volume h="18" val="439" />
+		<volume h="19" val="439" />
+	</count>
+		<count loc_id="8599" cs_id="11_Venezia_out">
+		<volume h="8" val="207" />
+		<volume h="9" val="207" />
+		<volume h="18" val="458" />
+		<volume h="19" val="458" />
+	</count>
+		<count loc_id="10777" cs_id="12_Clesio_in">
+		<volume h="8" val="1053" />
+		<volume h="9" val="1053" />
+		<volume h="18" val="966" />
+		<volume h="19" val="966" />
+	</count>
+		<count loc_id="4671" cs_id="12_Clesio_out">
+		<volume h="8" val="541" />
+		<volume h="9" val="541" />
+		<volume h="18" val="718" />
+		<volume h="19" val="718" />
+	</count>
+		<count loc_id="2272" cs_id="12_Manzoni">
+		<volume h="8" val="1036" />
+		<volume h="9" val="1036" />
+		<volume h="18" val="1173" />
+		<volume h="19" val="1173" />
+	</count>
+		<count loc_id="4674" cs_id="12_Romagnosi_in">
+		<volume h="8" val="377" />
+		<volume h="9" val="377" />
+		<volume h="18" val="438" />
+		<volume h="19" val="438" />
+	</count>
+		<count loc_id="4670" cs_id="12_Romagnosi_out">
+		<volume h="8" val="607" />
+		<volume h="9" val="607" />
+		<volume h="18" val="598" />
+		<volume h="19" val="598" />
+	</count>
+		<count loc_id="10783" cs_id="12_TorreVerde">
+		<volume h="8" val="754" />
+		<volume h="9" val="754" />
+		<volume h="18" val="1085" />
+		<volume h="19" val="1085" />
+	</count>
+		<count loc_id="10134" cs_id="13_Buonarroti_NORD_out">
+		<volume h="8" val="277" />
+		<volume h="9" val="277" />
+		<volume h="18" val="538" />
+		<volume h="19" val="538" />
+	</count>
+		<count loc_id="8655" cs_id="13_Fontana_OVEST_in">
+		<volume h="8" val="575" />
+		<volume h="9" val="575" />
+		<volume h="18" val="531" />
+		<volume h="19" val="531" />
+	</count>
+		<count loc_id="8654" cs_id="13_Fontana_OVEST_out">
+		<volume h="8" val="298" />
+		<volume h="9" val="298" />
+		<volume h="18" val="355" />
+		<volume h="19" val="355" />
+	</count>
+		<count loc_id="11318" cs_id="13_Buonarroti_SUD_in">
+		<volume h="8" val="475" />
+		<volume h="9" val="475" />
+		<volume h="18" val="708" />
+		<volume h="19" val="708" />
+	</count>
+		<count loc_id="11317" cs_id="13_Buonarroti_SUD_out">
+		<volume h="8" val="65" />
+		<volume h="9" val="65" />
+		<volume h="18" val="62" />
+		<volume h="19" val="62" />
+	</count>
+		<count loc_id="6014" cs_id="13_Fontana_EST_in">
+		<volume h="8" val="273" />
+		<volume h="9" val="273" />
+		<volume h="18" val="367" />
+		<volume h="19" val="367" />
+	</count>
+		<count loc_id="6015" cs_id="13_Fontana_EST_out">
+		<volume h="8" val="683" />
+		<volume h="9" val="683" />
+		<volume h="18" val="651" />
+		<volume h="19" val="651" />
+	</count>
+		<count loc_id="8401" cs_id="14_Braille_in">
+		<volume h="8" val="41" />
+		<volume h="9" val="41" />
+		<volume h="18" val="51" />
+		<volume h="19" val="51" />
+	</count>
+		<count loc_id="8400" cs_id="14_Braille_out">
+		<volume h="8" val="24" />
+		<volume h="9" val="24" />
+		<volume h="18" val="18" />
+		<volume h="19" val="18" />
+	</count>
+		<count loc_id="11316" cs_id="14_Pedrotti_in">
+		<volume h="8" val="581" />
+		<volume h="9" val="581" />
+		<volume h="18" val="536" />
+		<volume h="19" val="536" />
+	</count>
+		<count loc_id="11315" cs_id="14_Pedrotti_out">
+		<volume h="8" val="120" />
+		<volume h="9" val="120" />
+		<volume h="18" val="121" />
+		<volume h="19" val="121" />
+	</count>
+		<count loc_id="8604" cs_id="14_Fontana_in">
+		<volume h="8" val="322" />
+		<volume h="9" val="322" />
+		<volume h="18" val="313" />
+		<volume h="19" val="313" />
+	</count>
+		<count loc_id="8605" cs_id="14_Fontana_out">
+		<volume h="8" val="448" />
+		<volume h="9" val="448" />
+		<volume h="18" val="386" />
+		<volume h="19" val="386" />
+	</count>
+		<count loc_id="11327" cs_id="14_Leopardi">
+		<volume h="8" val="758" />
+		<volume h="9" val="758" />
+		<volume h="18" val="610" />
+		<volume h="19" val="610" />
+	</count>
+		<count loc_id="5805" cs_id="14_SanGiorgio_in">
+		<volume h="8" val="703" />
+		<volume h="9" val="703" />
+		<volume h="18" val="588" />
+		<volume h="19" val="588" />
+	</count>
+		<count loc_id="5804" cs_id="14_SanGiorgio_out">
+		<volume h="8" val="297" />
+		<volume h="9" val="297" />
+		<volume h="18" val="353" />
+		<volume h="19" val="353" />
+	</count>
+		<count loc_id="514" cs_id="15_Sanseverino_NORD_in">
+		<volume h="8" val="418" />
+		<volume h="9" val="418" />
+		<volume h="18" val="650" />
+		<volume h="19" val="650" />
+	</count>
+		<count loc_id="515" cs_id="15_Sanseverino_NORDO_out">
+		<volume h="8" val="694" />
+		<volume h="9" val="694" />
+		<volume h="18" val="529" />
+		<volume h="19" val="529" />
+	</count>
+		<count loc_id="9918" cs_id="15_MonteBaldo_in">
+		<volume h="8" val="315" />
+		<volume h="9" val="315" />
+		<volume h="18" val="413" />
+		<volume h="19" val="413" />
+	</count>
+		<count loc_id="9917" cs_id="15_MonteBaldo_out">
+		<volume h="8" val="356" />
+		<volume h="9" val="356" />
+		<volume h="18" val="398" />
+		<volume h="19" val="398" />
+	</count>
+		<count loc_id="9353" cs_id="15_Sanseverino_SUD_in">
+		<volume h="8" val="579" />
+		<volume h="9" val="579" />
+		<volume h="18" val="339" />
+		<volume h="19" val="339" />
+	</count>
+		<count loc_id="4055" cs_id="15_Sanseverino_SUD_out">
+		<volume h="8" val="262" />
+		<volume h="9" val="262" />
+		<volume h="18" val="475" />
+		<volume h="19" val="475" />
+	</count>
+		<count loc_id="9179" cs_id="Sezione9_Prepositura">
+		<volume h="8" val="350" />
+		<volume h="9" val="410" />
+		<volume h="10" val="425" />
+		<volume h="11" val="490" />
+		<volume h="12" val="405" />
+		<volume h="13" val="420" />
+		<volume h="14" val="475" />
+		<volume h="15" val="480" />
+		<volume h="16" val="495" />
+		<volume h="17" val="490" />
+		<volume h="18" val="570" />
+		<volume h="19" val="535" />
+	</count>
+		<count loc_id="9178" cs_id="Sezione10_Prepositura">
+		<volume h="8" val="370" />
+		<volume h="9" val="505" />
+		<volume h="10" val="445" />
+		<volume h="11" val="475" />
+		<volume h="12" val="425" />
+		<volume h="13" val="410" />
+		<volume h="14" val="395" />
+		<volume h="15" val="465" />
+		<volume h="16" val="475" />
+		<volume h="17" val="510" />
+		<volume h="18" val="530" />
+		<volume h="19" val="500" />
+	</count>
+		<count loc_id="3730" cs_id="Sezione11_McDonald_SUD_Mattarello">
+		<volume h="8" val="138" />
+		<volume h="9" val="157" />
+		<volume h="10" val="80" />
+		<volume h="11" val="79" />
+		<volume h="12" val="74" />
+		<volume h="13" val="82" />
+		<volume h="14" val="82" />
+		<volume h="15" val="99" />
+		<volume h="16" val="74" />
+		<volume h="17" val="94" />
+		<volume h="18" val="130" />
+		<volume h="19" val="134" />
+	</count>
+		<count loc_id="5473" cs_id="TangenzialeOvest1">
+		<volume h="8" val="2278" />
+		<volume h="9" val="2210" />
+	</count>
+		<count loc_id="2650" cs_id="TangenzialeOvest2">
+		<volume h="8" val="1254" />
+		<volume h="9" val="1210" />
+	</count>
+		<count loc_id="10902" cs_id="TangenzialeSud1">
+		<volume h="8" val="1545" />
+		<volume h="9" val="1513" />
+	</count>
+		<count loc_id="4090" cs_id="TangenzialeSud2">
+		<volume h="8" val="930" />
+		<volume h="9" val="921" />
+	</count>
+		<count loc_id="5187" cs_id="Bassano_out">
+		<volume h="8" val="546" />
+		<volume h="9" val="523" />
+	</count>
+		<count loc_id="5188" cs_id="Bassano_in">
+		<volume h="8" val="547" />
+		<volume h="9" val="524" />
+	</count>
+		<count loc_id="3754" cs_id="Venezia_out">
+		<volume h="8" val="236" />
+		<volume h="9" val="224" />
+	</count>
+		<count loc_id="3755" cs_id="Venezia_in">
+		<volume h="8" val="576" />
+		<volume h="9" val="572" />
+	</count>
+		<count loc_id="7118" cs_id="Povo1">
+		<volume h="8" val="406" />
+		<volume h="9" val="401" />
+	</count>
+		<count loc_id="7119" cs_id="Povo2">
+		<volume h="8" val="428" />
+		<volume h="9" val="422" />
+	</count>
+		<count loc_id="3458" cs_id="Mattarello1">
+		<volume h="8" val="420" />
+		<volume h="9" val="390" />
+	</count>
+		<count loc_id="3459" cs_id="Mattarello2">
+		<volume h="8" val="176" />
+		<volume h="9" val="175" />
+	</count>
+		<count loc_id="3733" cs_id="SanVincenzo1">
+		<volume h="8" val="232" />
+		<volume h="9" val="222" />
+	</count>
+		<count loc_id="3734" cs_id="SanVincenzo2">
+		<volume h="8" val="174" />
+		<volume h="9" val="172" />
+	</count>
+		<count loc_id="4885" cs_id="TangenzialeNord1">
+		<volume h="8" val="1657" />
+		<volume h="9" val="1570" />
+	</count>
+		<count loc_id="9294" cs_id="TangenzialeNord2">
+		<volume h="8" val="911" />
+		<volume h="9" val="915" />
+	</count>
+		<count loc_id="6843" cs_id="Bolzano1">
+		<volume h="8" val="661" />
+		<volume h="9" val="660" />
+	</count>
+		<count loc_id="4804" cs_id="Bolzano2">
+		<volume h="8" val="647" />
+		<volume h="9" val="647" />
+	</count>
+		<count loc_id="2378" cs_id="Nassirya1">
+		<volume h="8" val="706" />
+		<volume h="9" val="701" />
+	</count>
+		<count loc_id="2377" cs_id="Nassirya2">
+		<volume h="8" val="324" />
+		<volume h="9" val="324" />
+	</count>
+</counts>
