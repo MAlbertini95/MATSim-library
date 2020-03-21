@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE roadpricing SYSTEM "http://www.matsim.org/files/dtd/roadpricing_v1.dtd">
+  
+ <roadpricing type="link" name="Pedaggio per A22 Brennero e ZTL Centro Storico">
+  
+   	<description>Autostrada del Brennero e ZTL Centro</description>  
+   	<links>
+   		<link id="2887" />
+   		<link id="7237" />
+   		<link id="10168" />
+   		<link id="9407" />
+ <!--  		<link id="15001" />
+		<cost start_time="00:00" end_time="24:00" amount="3.50" />
+   		<link id="5131" />
+		<cost start_time="00:00" end_time="24:00" amount="3.50" />
+   		<link id="4482" />
+		<cost start_time="00:00" end_time="24:00" amount="3.50" />
+   		<link id="15010" />
+		<cost start_time="00:00" end_time="24:00" amount="4.00" />
+   		<link id="1434" />
+		<cost start_time="00:00" end_time="24:00" amount="5.00" />
+   		<link id="3249" />
+		<cost start_time="00:00" end_time="24:00" amount="5.00" /> -->
+   	</links>  
+   	<!-- amount: [monetary unit] / [traveling across a tolled link.] -->
+   	<cost start_time="00:00" end_time="24:00" amount="3.50" />
+  
+ </roadpricing>
