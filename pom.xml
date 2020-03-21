@@ -11,10 +11,10 @@
 
 	<properties>
 		<!-- release> -->
-		<matsim.version>11.0</matsim.version>
-
-		<!--weekly "release":-->
-		<!--<matsim.version>0.11.0-2019w01-SNAPSHOT</matsim.version>-->
+		<!-- <matsim.version>12.0</matsim.version> -->
+		
+		<!-- Development HEAD -->
+		<!--<matsim.version>12.0-SNAPSHOT</matsim.version>-->
 
 		<!-- snapshot> -->
 		<matsim.version>12.0-2019w48-SNAPSHOT</matsim.version>
@@ -38,6 +38,18 @@
 			<id>ojo-snapshots</id>
 			<url>https://oss.jfrog.org/libs-snapshot</url>
 		</repository>	
+		<repository>
+  	    	<id>jitpack.io</id>
+  	    	<url>https://jitpack.io</url>
+  		</repository>	
+		<repository>
+			<id>matsim-eth</id>
+			<url>https://dl.bintray.com/matsim-eth/matsim</url>
+		</repository>
+		<repository>
+  		    <id>SBB</id>
+  		    <url>https://bintray.com/schweizerischebundesbahnen/simba.mvn/matsim-sbb-extensions</url>
+  		</repository>
 	</repositories>
 
 	<dependencies>
@@ -77,7 +89,22 @@
 		<!--some contribs:-->
 		<dependency>
 			<groupId>org.matsim.contrib</groupId>
+			<artifactId>analysis</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.matsim.contrib</groupId>
 			<artifactId>minibus</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.matsim</groupId>
+			<artifactId>matsim-examples</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.matsim.contrib</groupId>
+			<artifactId>cadytsIntegration</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
 		<dependency>
@@ -97,8 +124,23 @@
 		</dependency>
 		<dependency>
 			<groupId>org.matsim.contrib</groupId>
+			<artifactId>dvrp</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
+				<dependency>
+			<groupId>org.matsim.contrib</groupId>
+			<artifactId>drt</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.matsim.contrib</groupId>
 			<artifactId>av</artifactId>
 			<version>${matsim.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.ethz.matsim</groupId>
+			<artifactId>av</artifactId>
+			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.matsim.contrib</groupId>
@@ -111,7 +153,16 @@
 			<version>${matsim.version}</version>
 		</dependency>
 		<!--Dependencies from where stated above to here are added as a service; they can be removed if you don't need them-->
-
+		<dependency>
+  			<groupId>org.jcodec</groupId>
+ 			<artifactId>jcodec-javase</artifactId>
+ 			<version>0.1.9</version>
+		</dependency>
+		<dependency>
+   			<groupId>com.vividsolutions</groupId>
+    		<artifactId>jts</artifactId>
+   			<version>1.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -128,11 +179,11 @@
 					<encoding>UTF-8</encoding>
 					<!-- configure initial and maximal memory for compiling -->
 					<fork>true</fork>
-					<meminitial>128m</meminitial>
-					<maxmem>512m</maxmem>
+					<meminitial>256m</meminitial>
+					<maxmem>1024m</maxmem>
 					<compilerArguments>
 						<Xmaxwarns>4000</Xmaxwarns>
-						<Xmaxerrs>100</Xmaxerrs>
+						<Xmaxerrs>1000</Xmaxerrs>
 					</compilerArguments>
 				</configuration>
 			</plugin>
