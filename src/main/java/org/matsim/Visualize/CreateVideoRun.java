@@ -17,17 +17,22 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.utils;
+package org.matsim.Visualize;
 
-import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.population.Person;
+import java.io.IOException;
 
 /**
- * @author amit
- */
+* @author teoal customizing ikaddoura
+*/
 
-public interface AgentFilter {
+public class CreateVideoRun {
+
+	private static final String runDirectory = "/Users/ihab/Desktop/ils4a/ziemke/open_berlin_scenario/output/be400mt_58_v6/";
+	private static final String runId = "be400mt_58_v6";
+
+	public static void main(String[] args) throws IOException {
+//		MATSimVideoUtils.createVideo(runDirectory, 10, "tolls");
+		MATSimVideoUtils.createLegHistogramVideo(runDirectory, runId, "/Users/ihab/Desktop/video");
+	}
 	
-	String getAgentTypeFromId(final Id<Person> id);
-
 }

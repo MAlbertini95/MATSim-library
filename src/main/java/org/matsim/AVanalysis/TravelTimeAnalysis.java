@@ -38,7 +38,7 @@ import org.matsim.api.core.v01.events.handler.PersonEntersVehicleEventHandler;
 import org.matsim.api.core.v01.population.Person;
 import org.matsim.core.utils.io.IOUtils;
 
-import org.matsim.trento.utils.GeomUtils;
+import org.matsim.Utils.GeomUtils;
 
 /**
  * @author  teoal from jbischoff

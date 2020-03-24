@@ -16,7 +16,7 @@
  *   See also COPYING, LICENSE and WARRANTY file                           *
  *                                                                         *
  * *********************************************************************** */
-package org.matsim.trento.utils;
+package org.matsim.Utils;
 
 import java.util.List;
 

@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Visualize;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -31,7 +31,7 @@ import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 
 /**
-* @author ikaddoura
+* @author teaol on code from ikaddoura
 */
 
 public class MATSimVideoUtils {

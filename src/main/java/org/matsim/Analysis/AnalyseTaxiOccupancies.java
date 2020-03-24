@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Analysis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,13 @@ import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.network.io.MatsimNetworkReader;
 
 /**
- * @author  jbischoff, taxi/evaluation
+ * @author  teoal based on jbischoff, taxi/evaluation
  *
  */
 /**
  *
  */
-public class AnalyseOccupancies {
+public class AnalyseTaxiOccupancies {
 	public static void main(String[] args) {
 	
 		Network network = NetworkUtils.createNetwork();
@@ -45,7 +45,7 @@ public class AnalyseOccupancies {
 		List<String> runs = new ArrayList<>();
 		runs.add("output_ASSIGNMENT_TP_1.0");
 		runs.add("output_ASSIGNMENT_TP_2.0");
-		runs.add("output_ASSIGNMENT_TP_3.0");
+/*		runs.add("output_ASSIGNMENT_TP_3.0");
 		runs.add("output_ASSIGNMENT_TP_4.0");
 		runs.add("output_ASSIGNMENT_TW_1.0");
 		runs.add("output_ASSIGNMENT_TW_2.0");
@@ -57,12 +57,12 @@ public class AnalyseOccupancies {
 		runs.add("output_RULE_BASED_DSE_4.0");
 		runs.add("output_RULE_BASED_TW_1.0");
 		runs.add("output_RULE_BASED_TW_2.0");
-		runs.add("output_RULE_BASED_TW_3.0");
+		runs.add("output_RULE_BASED_TW_3.0"); */
 		String output = "";
 		for (String run : runs){
 			String eventsfile = path+"/"+run+"/output_events.xml";
 			EventsManager events = EventsUtils.createEventsManager();
-			OccupancyDistanceEvaluator ev = new OccupancyDistanceEvaluator(network);
+			TaxiOccupancyDistanceEvaluator ev = new TaxiOccupancyDistanceEvaluator(network);
 			events.addHandler(ev);
 			new MatsimEventsReader(events).readFile(eventsfile);
 			String result = run + "\t"+ev.getEmptyKm()+"\t"+ev.getOccupiedKm()+"\n";

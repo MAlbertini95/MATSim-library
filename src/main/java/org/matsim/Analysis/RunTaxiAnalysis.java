@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;/*
+package org.matsim.Analysis;/*
 * created by jbischoff, 17.05.2018 av/accessibility/analysis 
 */
 
@@ -45,10 +45,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RunAnalysis {
+public class RunTaxiAnalysis {
 
    public static void main(String[] args) {
-       new RunAnalysis().run();
+       new RunTaxiAnalysis().run();
    }
 
    public void run() {

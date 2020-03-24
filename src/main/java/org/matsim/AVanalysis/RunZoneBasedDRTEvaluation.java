@@ -30,7 +30,7 @@ import org.matsim.core.network.io.MatsimNetworkReader;
 
 import org.matsim.AVanalysis.TravelTimeAnalysis;
 import org.matsim.AVanalysis.TravelDistanceTimeEvaluator;
-import org.matsim.trento.utils.GeomUtils;
+import org.matsim.Utils.GeomUtils;
 
 /**
  * @author  MAlbertini, based on JBischoff

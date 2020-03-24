@@ -17,35 +17,42 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Utils;
 
-import org.matsim.api.core.v01.Scenario;
-import org.matsim.core.config.Config;
-import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.controler.Controler;
-import org.matsim.core.controler.OutputDirectoryHierarchy.OverwriteFileSetting;
-import org.matsim.core.scenario.ScenarioUtils;
+import org.apache.log4j.Logger;
+import org.matsim.api.core.v01.Id;
+import org.matsim.api.core.v01.population.Person;
+
+import org.matsim.Utils.AgentFilter;
 
 /**
- * @author  jbischoff
- *
- */
-/**
- *
- */
-public class TripHistogramExample {
+* @author ikaddoura
+*/
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Config config = ConfigUtils.loadConfig("C:/Users/Joschka/davis-tut/example-project/config.xml");
-		config.vspExperimental().setAbleToOverwritePtInteractionParams(true);
-		config.controler().setOverwriteFileSetting(OverwriteFileSetting.deleteDirectoryIfExists);
-		Scenario scenario = ScenarioUtils.loadScenario(config);
-		Controler controler = new Controler(scenario);
-		controler.addOverridingModule(new TripHistogramModule());
-		controler.run();
+public class AVAgentFilter implements AgentFilter {
+	private static final Logger log = Logger.getLogger(AVAgentFilter.class);
+	private int wrnCnt = 0;
+
+	@Override
+	public String getAgentTypeFromId(Id<Person> id) {
+			
+		if (id == null) {
+			if (wrnCnt < 5) {
+				log.warn("Person id is null. Assuming this person to be a taxi driver.");
+				if (wrnCnt == 4) log.warn("Further warnings of this type are not printed out.");
+				wrnCnt++;
+			}
+			return "taxi";
+		}
+		
+		if (id.toString().startsWith("taxi")
+				|| id.toString().startsWith("av")
+				|| id.toString().startsWith("sav")) {
+			return "taxi";
+		
+		} else {
+			return "other";
+		}
 	}
 
 }

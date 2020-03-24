@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.utils; 
+package org.matsim.Utils; 
 
 import org.matsim.contrib.taxi.benchmark.*;
 

@@ -17,14 +17,14 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis; 
+package org.matsim.Analysis; 
 
 import java.util.Arrays;
 
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.trento.analysis.KNAnalysisEventsHandler;
+import org.matsim.contrib.roadpricing.RoadPricingConfigGroup;
+import org.matsim.Analysis.KNAnalysisEventsHandler;
 import org.matsim.core.api.experimental.events.EventsManager;
-import org.matsim.roadpricing.*;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.events.EventsManagerImpl;

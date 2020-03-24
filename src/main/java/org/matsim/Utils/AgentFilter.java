@@ -17,13 +17,17 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Utils;
 
+import org.matsim.api.core.v01.Id;
+import org.matsim.api.core.v01.population.Person;
 
-import org.matsim.contrib.taxi.benchmark.RunTaxiBenchmark;
+/**
+ * @author amit
+ */
 
-public class RunAudiAVBenchmark {
-	public static void main(String[] args) {
-		RunTaxiBenchmark.run(args[0], 1);
-	}
+public interface AgentFilter {
+	
+	String getAgentTypeFromId(final Id<Person> id);
+
 }

@@ -17,22 +17,35 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Analysis;
 
-import java.io.IOException;
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.core.config.Config;
+import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.controler.Controler;
+import org.matsim.core.controler.OutputDirectoryHierarchy.OverwriteFileSetting;
+import org.matsim.core.scenario.ScenarioUtils;
 
 /**
-* @author ikaddoura
-*/
+ * @author  jbischoff
+ *
+ */
+/**
+ *
+ */
+public class TripHistogramExample {
 
-public class CreateVideoRun {
-
-	private static final String runDirectory = "/Users/ihab/Desktop/ils4a/ziemke/open_berlin_scenario/output/be400mt_58_v6/";
-	private static final String runId = "be400mt_58_v6";
-
-	public static void main(String[] args) throws IOException {
-//		MATSimVideoUtils.createVideo(runDirectory, 10, "tolls");
-		MATSimVideoUtils.createLegHistogramVideo(runDirectory, runId, "/Users/ihab/Desktop/video");
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Config config = ConfigUtils.loadConfig("C:/Users/Joschka/davis-tut/example-project/config.xml");
+		config.vspExperimental().setAbleToOverwritePtInteractionParams(true);
+		config.controler().setOverwriteFileSetting(OverwriteFileSetting.deleteDirectoryIfExists);
+		Scenario scenario = ScenarioUtils.loadScenario(config);
+		Controler controler = new Controler(scenario);
+		controler.addOverridingModule(new TripHistogramModule());
+		controler.run();
 	}
-	
+
 }

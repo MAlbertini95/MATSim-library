@@ -17,42 +17,22 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.utils;
+package org.matsim.Analysis;
 
-import org.apache.log4j.Logger;
-import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.population.Person;
-
-import org.matsim.trento.utils.AgentFilter;
+import org.matsim.core.controler.AbstractModule;
 
 /**
-* @author ikaddoura
-*/
-
-public class AVAgentFilter implements AgentFilter {
-	private static final Logger log = Logger.getLogger(AVAgentFilter.class);
-	private int wrnCnt = 0;
-
+ * @author  jbischoff
+ *
+ */
+/**
+ *
+ */
+public class TripHistogramModule extends AbstractModule {
 	@Override
-	public String getAgentTypeFromId(Id<Person> id) {
-			
-		if (id == null) {
-			if (wrnCnt < 5) {
-				log.warn("Person id is null. Assuming this person to be a taxi driver.");
-				if (wrnCnt == 4) log.warn("Further warnings of this type are not printed out.");
-				wrnCnt++;
-			}
-			return "taxi";
-		}
-		
-		if (id.toString().startsWith("taxi")
-				|| id.toString().startsWith("av")
-				|| id.toString().startsWith("sav")) {
-			return "taxi";
-		
-		} else {
-			return "other";
-		}
+	public void install() {
+		addControlerListenerBinding().to(TripHistogramListener.class).asEagerSingleton();
+		bind(TripHistogram.class).asEagerSingleton();
 	}
-
+	
 }

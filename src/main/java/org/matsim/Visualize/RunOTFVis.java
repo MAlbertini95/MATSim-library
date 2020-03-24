@@ -19,6 +19,9 @@
  * *********************************************************************** */
 
 package org.matsim.Visualize;
+
+import org.matsim.contrib.otfvis.OTFVis;
+
 /**
  * A generic starter for the OnTheFly Visualizer that supports
  * MATSim Visualizer Files (MVI) and MATSim Config Files for the live simulation and visualization.

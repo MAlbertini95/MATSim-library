@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Analysis;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +39,7 @@ import org.matsim.api.core.v01.population.Population;
 import org.matsim.core.controler.ControlerListenerManager;
 import org.matsim.core.controler.events.IterationStartsEvent;
 import org.matsim.core.controler.listener.IterationStartsListener;
+import org.matsim.core.router.StageActivityTypeIdentifier;
 import org.matsim.core.router.TripRouter;
 import org.matsim.core.scoring.EventsToActivities;
 import org.matsim.core.scoring.EventsToLegs;
@@ -49,7 +50,7 @@ import org.matsim.core.utils.misc.Time;
 import com.google.inject.Inject;
 
 /**
- * @author  jbischoff
+ * @author  teoal based on jbischoff
  *
  */
 /**
@@ -110,7 +111,7 @@ public class TripHistogram implements  EventsToLegs.LegHandler, EventsToActiviti
 		Id<Person> agentId = o.getAgentId();
 		Activity activity = o.getActivity();
 		List<PlanElement> planElementRecord = agentLastTripRecord.get(agentId);
-		if (triprouter.getStageActivityTypes().isStageActivity(activity.getType())){
+		if (StageActivityTypeIdentifier.isStageActivity(activity.getType())){
 			if (planElementRecord != null) {
 				planElementRecord.add(activity);
 			}

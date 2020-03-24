@@ -17,10 +17,10 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Analysis;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -89,7 +89,7 @@ public class TripHistogramChart {
 	 */
 	public static void writeGraphic(TripHistogram tripHistogram, final String filename) {
 		try {
-            ChartUtilities.saveChartAsPNG(new File(filename), getGraphic(tripHistogram.getAllModesData(), "all", tripHistogram.getIteration()), 1024, 768);
+            ChartUtils.saveChartAsPNG(new File(filename), getGraphic(tripHistogram.getAllModesData(), "all", tripHistogram.getIteration()), 1024, 768);
 		} catch (IOException e) {
             throw new UncheckedIOException(e);
 		}
@@ -107,7 +107,7 @@ public class TripHistogramChart {
 	 */
 	public static void writeGraphic(TripHistogram tripHistogram, final String filename, final String legMode) {
 		try {
-            ChartUtilities.saveChartAsPNG(new File(filename), getGraphic(tripHistogram.getDataForMode(legMode), legMode, tripHistogram.getIteration()), 1024, 768);
+            ChartUtils.saveChartAsPNG(new File(filename), getGraphic(tripHistogram.getDataForMode(legMode), legMode, tripHistogram.getIteration()), 1024, 768);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}

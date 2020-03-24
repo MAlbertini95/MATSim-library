@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Analysis;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +42,7 @@ import org.matsim.vehicles.Vehicle;
 /**
  *
  */
-public class OccupancyDistanceEvaluator
+public class TaxiOccupancyDistanceEvaluator
 		implements LinkEnterEventHandler, ActivityEndEventHandler {
 	
 	Map<Id<Vehicle>,Boolean> vehicleBusy = new HashMap<>();
@@ -53,7 +53,7 @@ public class OccupancyDistanceEvaluator
 	
 	
 
-	public OccupancyDistanceEvaluator(Network network) {
+	public TaxiOccupancyDistanceEvaluator(Network network) {
 		this.network = network;
 	}
 

@@ -16,7 +16,7 @@
  *   See also COPYING, LICENSE and WARRANTY file                           *
  *                                                                         *
  * *********************************************************************** */
-package org.matsim.trento.utils;
+package org.matsim.AVanalysis;
 
 import java.io.*;
 import java.util.*;
@@ -33,7 +33,7 @@ import org.matsim.core.utils.io.IOUtils;
 /**
  * @author jbischoff
  */
-public class AVTaxiCustomerWaitTimeAnalyser
+public class ATaxiCustomerWaitTimeAnalyser
     implements PersonDepartureEventHandler, PersonEntersVehicleEventHandler
 {
 
@@ -46,7 +46,7 @@ public class AVTaxiCustomerWaitTimeAnalyser
     private List<WaitTimeLogRow> waitTimes;
 
 
-    public AVTaxiCustomerWaitTimeAnalyser(Scenario scen)
+    public ATaxiCustomerWaitTimeAnalyser(Scenario scen)
     {
         this.scenario = scen;
         this.taxicalltime = new HashMap<Id, Double>();

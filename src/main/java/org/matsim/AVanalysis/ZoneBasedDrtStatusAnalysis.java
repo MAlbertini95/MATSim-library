@@ -38,7 +38,7 @@ import org.matsim.core.utils.geometry.geotools.MGC;
 import org.matsim.core.utils.io.IOUtils;
 import org.matsim.vehicles.Vehicle;
 
-import org.matsim.trento.utils.GeomUtils;
+import org.matsim.Utils.GeomUtils;
 
 /**
  * @author teoal da jbischoff, needs revision for drt tasks

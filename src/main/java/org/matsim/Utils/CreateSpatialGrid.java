@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;/*
+package org.matsim.Utils;/*
  * created by jbischoff, 17.05.2018
  */
 
@@ -35,18 +35,18 @@ import org.matsim.core.utils.gis.ShapeFileWriter;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
-import org.matsim.trento.utils.JbUtils;
+import org.matsim.Utils.GeomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CreateBerlinGrid {
+public class CreateSpatialGrid {
 
     public static void main(String[] args) {
         Network network = NetworkUtils.createNetwork();
         new MatsimNetworkReader(network).readFile("D:/runs-svn/avsim/av_accessibility/input/berlin_only_net.xml.gz");
-        Map<String, Geometry> geometryMap = JbUtils.readShapeFileAndExtractGeometry("C:/Users/Joschka/Documents/shared-svn/projects/accessibility_berlin/av/grid/squares.shp", "NO");
+        Map<String, Geometry> geometryMap = GeomUtils.readShapeFileAndExtractGeometry("C:/Users/Joschka/Documents/shared-svn/projects/accessibility_berlin/av/grid/squares.shp", "NO");
 //        Map<String, Geometry> geometryMap = DrtGridUtils.createGridFromNetwork(network, 500);
         for (Link l : network.getLinks().values()) {
 

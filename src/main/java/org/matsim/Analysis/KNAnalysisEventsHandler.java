@@ -18,7 +18,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.analysis;
+package org.matsim.Analysis;
 
 import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.Coord;
@@ -28,6 +28,8 @@ import org.matsim.api.core.v01.events.*;
 import org.matsim.api.core.v01.events.handler.*;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.population.*;
+import org.matsim.contrib.analysis.kai.DataMap;
+import org.matsim.contrib.analysis.kai.Databins;
 import org.matsim.contrib.roadpricing.*;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
@@ -256,7 +258,7 @@ public class KNAnalysisEventsHandler implements PersonDepartureEventHandler, Per
 			legTypes.add("zz_mode_" + leg.getMode()) ;
 
 			// register the leg by subpop type:
-			legTypes.add( this.getSubpopName(person) ) ;
+//			legTypes.add( this.getSubpopName(person) ) ;
 
 
 			// register the leg for the overall average:
@@ -320,14 +322,14 @@ public class KNAnalysisEventsHandler implements PersonDepartureEventHandler, Per
 		return CoordUtils.calcEuclideanDistance( fromCoord, toCoord ) ;
 	}
 
-	private String getSubpopName(Person person) {
+/*	private String getSubpopName(Person person) {
 		return "yy_" + getSubpopName( person, this.scenario.getConfig() ) ;
 	}
 	private String getSubpopName( Person person, Config config ) {
 //		String subpop = (String) personAttributes.getAttribute( personId.toString(), subpopAttrName ) ;
 		String subpop = PopulationUtils.getSubpopulation(person );
 		return "subpop_" + subpop;
-	}
+	} */
 
 	private void addItemToAllRegisteredTypes(List<String> legTypes, StatType statType, double item) {
 		// ... go through all legTypes to which the leg belongs ...
@@ -384,7 +386,7 @@ public class KNAnalysisEventsHandler implements PersonDepartureEventHandler, Per
 
 		final Population pop = this.scenario.getPopulation();
 		Person person = pop.getPersons().get( event.getPersonId() ) ;
-		legTypes.add( this.getSubpopName(person)) ;
+//		legTypes.add( this.getSubpopName(person)) ;
 
 		double item = - event.getAmount() ;
 
@@ -417,7 +419,7 @@ public class KNAnalysisEventsHandler implements PersonDepartureEventHandler, Per
 			{
 				// this defines to which categories this person should belong for the statistical averaging:
 				List<String> categories = new ArrayList<>() ;
-				categories.add( this.getSubpopName(person) ) ;
+//				categories.add( this.getSubpopName(person) ) ;
 				categories.add("zzzzzzz_all") ; 			// register for the overall average
 
 				if ( selectedPlan.getScore()!=null ) {
@@ -432,7 +434,7 @@ public class KNAnalysisEventsHandler implements PersonDepartureEventHandler, Per
 
 					// this defines to which categories this person should belong for the statistical averaging:
 					List<String> categories = new ArrayList<>() ;
-					categories.add( this.getSubpopName(person) ) ;
+//					categories.add( this.getSubpopName(person) ) ;
 					categories.add("zz_mode_" + mainMode) ;
 					categories.add("zzzzzzz_all") ;  // register for the overall average
 
