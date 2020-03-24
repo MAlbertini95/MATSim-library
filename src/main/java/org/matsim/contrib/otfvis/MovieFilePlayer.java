@@ -1,9 +1,10 @@
 /* *********************************************************************** *
- * project: org.matsim.*												   *
+ * project: org.matsim.*
+ * OTFVis.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008 by the members listed in the COPYING,        *
+ * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -17,29 +18,28 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.savPricing;
+package org.matsim.contrib.otfvis;
 
-import java.util.Map;
-import java.util.Set;
-
-import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.population.Person;
-import org.matsim.vehicles.Vehicle;
+import org.matsim.contrib.otfvis.OTFVis;
+import org.matsim.vis.otfvis.OTFClientFile;
 
 /**
-* @author ikaddoura
-*/
+ * @author teoal
+ */
 
-public interface SAVPassengerTracker {
-
-	public boolean isTaxiPassenger(Id<Person> personId);
+public class MovieFilePlayer {
 	
-	public Set<Id<Vehicle>> getTaxiVehicles();
-
-	public Map<Id<Vehicle>, Id<Person>> getVehicle2passenger();
-
-	public Map<Id<Vehicle>, Id<Person>> getVehicle2lastPassenger();
-	
-	public Set<Id<Person>> getCurrentTaxiPassengers();
-	
+	public static void main(String[] args) {
+		// Parameters
+		String mviFile = "Path to OTFVIS file/otfvis.mvi";
+		boolean createScreenshots = true; // Snapshots will be stored at run directory
+		
+		// Run
+		if (createScreenshots == false) {
+			OTFVis.playMVI(mviFile);
+		} else {
+//			new OTFClientFile(mviFile).run();
+			new MyOTFClientFile(mviFile).run();
+		}
+	}
 }

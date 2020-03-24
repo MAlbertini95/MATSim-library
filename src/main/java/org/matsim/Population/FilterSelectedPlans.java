@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.utils;
+package org.matsim.Population;
 
 import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.Scenario;

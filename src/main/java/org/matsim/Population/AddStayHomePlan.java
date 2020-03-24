@@ -16,53 +16,54 @@
  *   See also COPYING, LICENSE and WARRANTY file                           *
  *                                                                         *
  * *********************************************************************** */
-package org.matsim.trento.utils;
 
-import org.apache.log4j.Logger;
+package org.matsim.Population;
+
+
 import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.population.Activity;
 import org.matsim.api.core.v01.population.Person;
 import org.matsim.api.core.v01.population.Plan;
+import org.matsim.api.core.v01.population.Population;
 import org.matsim.api.core.v01.population.PopulationWriter;
+import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.gbl.Gbl;
 import org.matsim.core.population.io.PopulationReader;
 import org.matsim.core.scenario.ScenarioUtils;
 
 /**
- * @author nagel
- *
+ * @author teoal customized dziemke.
+ * Uses a given plans file and adds a stay-home plan to the plans of each person
+ * The home location of the newly created stay-home plan is taken from the first plan of the agent
  */
-public class PopulationFilter{
-	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger( PopulationFilter.class ) ;
+public class AddStayHomePlan {
 
+	// input and output files
+	static String inputPlansFile = "Path to input file/plans.xml.gz";
+	static String outputPlansFile = "Path to output file/plansStayHome.xml.gz";
+	
 	public static void main(String[] args) {
-		if ( args.length==0 ) {
-			args = new String [] { "scenarios/Calibration/FilteringConfig.xml" } ;
-			// to make sure that something is run by default; better start from MATSimGUI.
-		} else {
-			Gbl.assertIf( args[0] != null && !args[0].equals( "" ) );
+		Config config = ConfigUtils.createConfig();
+		Scenario scenario = ScenarioUtils.createScenario(config);
+		PopulationReader reader = new PopulationReader(scenario);
+		reader.readFile(inputPlansFile);
+		Population population = scenario.getPopulation();
+
+		for (Person person : population.getPersons().values()) {			
+			Plan plan = person.getPlans().get(0);
+			
+			Activity homeActivity = (Activity) plan.getPlanElements().get(0);
+			
+			Plan plan2 = population.getFactory().createPlan();
+			plan2.addActivity(homeActivity);			
+			
+			person.addPlan(plan2);		
 		}
 		
+		// write population file
+		//new PopulationWriter(scenario.getPopulation(), null).write(outputBase + "plans.xml.gz");
+		new PopulationWriter(scenario.getPopulation(), null).write(outputPlansFile);
 		
-	//----
-		
-	Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
-	new PopulationReader(scenario).readFile("scenarios/Calibration/Tn500.output_plans.xml.gz");
-
-	for (Person person : scenario.getPopulation().getPersons().values()) {
-		Plan highestScoring = person.getPlans().stream()
-			// get the plan with the highest score
-			.min((plan1, plan2) -> Double.compare(plan2.getScore(), plan1.getScore()))
-			.orElseThrow(() -> new RuntimeException("something went wrong"));
-
-		person.getPlans().clear();
-		person.addPlan(highestScoring);
-		person.setSelectedPlan(highestScoring);
+		System.out.println("Analysis file " + outputPlansFile + " written.");
 	}
-
-	new PopulationWriter(scenario.getPopulation()).write("scenarios/Calibration/CaydtsUpScaledPopulation.xml");
-	
-	}
-	
 }

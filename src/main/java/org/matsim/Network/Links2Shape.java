@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.utils; 
+package org.matsim.Network; 
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,26 +45,23 @@ import org.matsim.utils.gis.matsim2esri.network.Links2ESRIShape;
 import org.matsim.utils.gis.matsim2esri.network.PolygonFeatureGenerator;
 
 /**
- * @author MALbertini based on nagel code
- *
+ * @author MAlbertini
+ * this code is a customization of KNLinks2Shape from Kai Nagel vsp playground
  */
-public class MALinks2Shape {
+public class Links2Shape {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		
-		args[0]= "Path to Input Network" ;
-		
-		//Verificare Authority Name e codice del CRS;
-		String defaultCRS = "EPSG3857";  
+		String defaultCRS = "EPSG:3857";
 		boolean commonWealth = true ;
 		
-		String outputFileP = "t.shp" ; //Per generare il file di output
+		String outputFilePath = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/CALIBRAZIONE/Trento_Calibrated/CalibratedNetwork.shp" ;
 		
 		Config config = ConfigUtils.createConfig() ;
-		config.network().setInputFile( args[0] );
+		config.network().setInputFile( "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/CALIBRAZIONE/Trento_Calibrated/ModalShare.output_network.xml.gz" );
 		Scenario scenario = ScenarioUtils.loadScenario( config ) ;
 		
 		final Map<Id,Double> ttimeSums = new HashMap<Id,Double>() ;
@@ -100,7 +97,7 @@ public class MALinks2Shape {
 		} );
 		
 		
-		new MatsimEventsReader(events).readFile( args[1] );
+		new MatsimEventsReader(events).readFile( "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/CALIBRAZIONE/Trento_Calibrated/ModalShare.output_events.xml.gz" );
 
 		
 		Network newNetwork = NetworkUtils.createNetwork() ;
@@ -126,7 +123,7 @@ public class MALinks2Shape {
 		builder.setFeatureGeneratorPrototype(PolygonFeatureGenerator.class);
 		builder.setWidthCalculatorPrototype(CapacityBasedWidthCalculator.class);
 
-		new Links2ESRIShape( newNetwork,outputFileP, builder).write();
+		new Links2ESRIShape( newNetwork,outputFilePath, builder).write();
 	
 	}
 

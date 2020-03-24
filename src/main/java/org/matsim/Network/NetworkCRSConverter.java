@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.trento.utils;
+package org.matsim.Network;
 
 
 import org.matsim.api.core.v01.Scenario;
@@ -34,9 +34,8 @@ public class NetworkCRSConverter {
     public static void main (String[] args) {
         String networkInputFile = "PATH TO NETWORK/Matsim_Network/network_2248.xml.gz";
         String networkOutputFile = "PATH TO OUTPUT NETWORK/Matsim_Network/network_26918.xml.gz";
-        String inputCRS = "EPSG:2248"; // NAD83 / Maryland (ftUS)
-        String outputCRS = "EPSG:26918"; // NAD83 / UTM zone 18N
-
+        String inputCRS = "EPSG:2248"; 
+        String outputCRS = "EPSG:26918"; 
         CoordinateTransformation ct = TransformationFactory.getCoordinateTransformation(inputCRS, outputCRS);
 
         Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());

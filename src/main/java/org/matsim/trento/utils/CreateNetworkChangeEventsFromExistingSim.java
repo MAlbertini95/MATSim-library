@@ -36,12 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author teoal based on nagel
  * This class shows how to generate Network Change Events based on the speeds measured in an existing simulation.
  * These change events may be useful to simulate only some of the traffic of a simulation (e.g., fleets of taxis).
  * <br/>
  * The code is meant to be copied and modified according to needs; it is <i>not</i> meant to be used as a library code.
  */
-public class RunCreateNetworkChangeEventsFromExistingSimulation{
+public class CreateNetworkChangeEventsFromExistingSim{
 	private static final int ENDTIME = 24 * 3600;
 	private static final int TIMESTEP = 5 * 60;
 	private static final String NETWORKFILE = "scenarios/Car2AT/Trento_Network.xml.gz";
@@ -51,7 +52,7 @@ public class RunCreateNetworkChangeEventsFromExistingSimulation{
 
 
 	public static void main(String[] args) {
-		RunCreateNetworkChangeEventsFromExistingSimulation ncg = new RunCreateNetworkChangeEventsFromExistingSimulation();
+		CreateNetworkChangeEventsFromExistingSim ncg = new CreateNetworkChangeEventsFromExistingSim();
 		ncg.run();
 	}
 
