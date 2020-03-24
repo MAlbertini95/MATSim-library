@@ -38,15 +38,11 @@ import org.matsim.api.core.v01.events.handler.PersonEntersVehicleEventHandler;
 import org.matsim.api.core.v01.population.Person;
 import org.matsim.core.utils.io.IOUtils;
 
-import org.matsim.trento.utils.JbUtils;
+import org.matsim.trento.utils.GeomUtils;
 
 /**
- * @author  MAlbertini
+ * @author  teoal from jbischoff
  *
- */
-
-/* creato da JBischoff, av/evaluation, usato per flowpaper
- * 
  */
 
 public class TravelTimeAnalysis implements PersonDepartureEventHandler, PersonArrivalEventHandler, PersonEntersVehicleEventHandler {
@@ -73,7 +69,7 @@ public class TravelTimeAnalysis implements PersonDepartureEventHandler, PersonAr
 			if (event.getLegMode().equals(TransportMode.car)){
 				double departureTime = lastCarDepartureTime.remove(event.getPersonId());
 				double travelTime = event.getTime()-departureTime;
-				int hour = JbUtils.getHour(departureTime);
+				int hour = GeomUtils.getHour(departureTime);
 				//car trip inside Trento
 				this.traveltimePerHourCar[hour]+=travelTime;
 				this.departuresPerHourCar[hour]++;
@@ -81,7 +77,7 @@ public class TravelTimeAnalysis implements PersonDepartureEventHandler, PersonAr
 			else if (event.getLegMode().equals("ATaxi")){
 				//taxi trip
 				double departureTime = lastTaxiDepartureTime.remove(event.getPersonId());
-				int hour = JbUtils.getHour(departureTime);
+				int hour = GeomUtils.getHour(departureTime);
 			
 				double vehEnterTime = lastTaxiVehicleEnterTime.remove(event.getPersonId());
 				double travelTime = event.getTime() - vehEnterTime;   //includes pickup and dropoff (=180 s)
@@ -114,7 +110,7 @@ public class TravelTimeAnalysis implements PersonDepartureEventHandler, PersonAr
 		if (this.lastTaxiDepartureTime.containsKey(event.getPersonId())){
 			double departureTime = lastTaxiDepartureTime.get(event.getPersonId());
 			double waitingTime = event.getTime() - departureTime;
-			int hour = JbUtils.getHour(departureTime);
+			int hour = GeomUtils.getHour(departureTime);
 			this.lastTaxiVehicleEnterTime.put(event.getPersonId(), event.getTime());
 			this.waitingTimePerHourTaxi[hour]+=waitingTime;
 		}

@@ -30,15 +30,6 @@ import org.matsim.core.utils.collections.Tuple;
 
 public class LinkDemandAnalysisRun {
 	
-//	private static String OUTPUT_BASE_DIR = "/Users/ihab/Documents/workspace/runs-svn/sav-pricing-setupA/output_bc-0";
-//	private String runId = "bc-0";
-
-//	private static String OUTPUT_BASE_DIR = "/Users/ihab/Documents/workspace/runs-svn/sav-pricing-setupA/output_savA-0d";
-//	private String runId = "savA-0d";
-	
-//	private static String OUTPUT_BASE_DIR = "/Users/ihab/Documents/workspace/runs-svn/sav-pricing-setupA/output_savA-2d";
-//	private String runId = "savA-2d";
-	
 	private static String OUTPUT_BASE_DIR = "/Users/ihab/Documents/workspace/runs-svn/sav-pricing-setupA/output_savA-3d";
 	private String runId = "savA-3d";
 

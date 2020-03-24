@@ -39,10 +39,10 @@ import org.opengis.feature.simple.SimpleFeature;
 
 
 /**
- * @author  jbischoff
+ * @author  MAlbertini based on jbischoff
  *
  */
-public class JbUtils {
+public class GeomUtils {
 
 	
 	public static int getHour(double time){

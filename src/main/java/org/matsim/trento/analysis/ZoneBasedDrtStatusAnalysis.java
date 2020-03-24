@@ -38,15 +38,11 @@ import org.matsim.core.utils.geometry.geotools.MGC;
 import org.matsim.core.utils.io.IOUtils;
 import org.matsim.vehicles.Vehicle;
 
-import org.matsim.trento.utils.JbUtils;
+import org.matsim.trento.utils.GeomUtils;
 
 /**
- * @author jbischoff
+ * @author teoal da jbischoff, needs revision for drt tasks
  *
- */
-
-/* creato da JBischoff, av/evaluation, usato per flowpaper
- * 
  */
 
 public class ZoneBasedDrtStatusAnalysis implements LinkEnterEventHandler, ActivityEndEventHandler {
@@ -309,7 +305,7 @@ public class ZoneBasedDrtStatusAnalysis implements LinkEnterEventHandler, Activi
 	}
 
 	private int getTimeBin(double time) {
-		return JbUtils.getHour(time);
+		return GeomUtils.getHour(time);
 	}
 
 }

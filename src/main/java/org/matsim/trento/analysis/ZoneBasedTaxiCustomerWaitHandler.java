@@ -35,9 +35,9 @@ import org.matsim.core.utils.geometry.geotools.MGC;
 import org.matsim.core.utils.io.IOUtils;
 
 
-import org.matsim.trento.utils.JbUtils;
+import org.matsim.trento.utils.GeomUtils;
 
-/* creato da JBischoff, av/evaluation, usato per flowpaper
+/** @author teoal da JBischoff, av/evaluation, usato per flowpaper
  * 
  */
 
@@ -98,7 +98,7 @@ public class ZoneBasedTaxiCustomerWaitHandler implements PersonDepartureEventHan
 	        double waitingTime = event.getTime() - callTime;
 	        if (this.personZone.containsKey(event.getPersonId())){
 	        	String zoneId = this.personZone.remove(event.getPersonId());
-	        	int hour = JbUtils.getHour(callTime);
+	        	int hour = GeomUtils.getHour(callTime);
 	        	this.zoneDepartures.get(zoneId)[hour]++;
 	        	
 	        	this.zoneWaitTimes.get(zoneId)[hour]+=waitingTime;

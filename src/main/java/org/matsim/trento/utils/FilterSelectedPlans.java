@@ -32,15 +32,16 @@ import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 
 /**
-* @author ikaddoura
+* @author MAlbertini based on ikaddoura. 
+* Permette di conservare solo i piani selezionati, riducendo la pesantezza del file e garantendo una facile visualizzazione.
 */
 
 public class FilterSelectedPlans {
 	
 	private static final Logger log = Logger.getLogger(FilterSelectedPlans.class);
 	
-	private final static String inputPlans = "/Users/ihab/Desktop/ils3a/kaddoura/berlin/output/output_bln_5.4_1pct/run_bln_5.4_1pct.output_plans.xml.gz";
-	private final static String outputPlans = "/Users/ihab/Desktop/ils3a/kaddoura/berlin/output/output_bln_5.4_1pct/run_bln_5.4_1pct.output_plans.selected.xml.gz";
+	private final static String inputPlans = "Path to input plans/run_bln_5.4_1pct.output_plans.xml.gz";
+	private final static String outputPlans = "Path to output selected plans/run_bln_5.4_1pct.output_plans.selected.xml.gz";
 //	private static final String[] attributes = {"OpeningClosingTimes"};
 	private static final String[] attributes = {};
 	
@@ -59,9 +60,9 @@ public class FilterSelectedPlans {
 		log.info("Other person attributes will not appear in the output plans file.");
 		
 		Config config = ConfigUtils.createConfig();
-		config.global().setCoordinateSystem(TransformationFactory.GK4);
+		config.global().setCoordinateSystem(TransformationFactory.WGS84); // To check Transformation Factory for desired CRS. see TransformationFactory class
 		config.plans().setInputFile(inputPlans);
-		config.plans().setInputCRS(TransformationFactory.GK4);
+		config.plans().setInputCRS(TransformationFactory.WGS84);
 		Scenario scOutput;
 		Scenario scInput = ScenarioUtils.loadScenario(config);
 		scOutput = ScenarioUtils.createScenario(ConfigUtils.createConfig());

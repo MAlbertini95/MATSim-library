@@ -33,10 +33,6 @@ import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.population.Person;
-import org.matsim.contrib.noise.MergeNoiseCSVFile;
-import org.matsim.contrib.noise.MergeNoiseCSVFile.OutputFormat;
-import org.matsim.contrib.noise.NoiseConfigGroup;
-import org.matsim.contrib.noise.NoiseOfflineCalculation;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.groups.PlanCalcScoreConfigGroup.ActivityParams;
 import org.matsim.core.config.groups.PlanCalcScoreConfigGroup.ModeParams;
@@ -54,7 +50,7 @@ import org.matsim.vehicles.VehicleUtils;
 import org.matsim.vehicles.Vehicles;
 
 /**
- * @author nagel
+ * @author MAlbertini based on nagel
  *
  */
 final class BerlinUtils {
@@ -67,7 +63,7 @@ final class BerlinUtils {
 	static class BikeTravelTime implements TravelTime {
 		@Override public double getLinkTravelTime(Link link, double time, Person person, Vehicle vehicle) {
 			return link.getLength() / Math.min( link.getFreespeed(time) , 15./3.6 ) ; 
-			// google maps ass	umes an average speed of 15km/h but I think that's unrealistic
+			// google maps assumes an average speed of 15km/h but I think that's unrealistic
 			// 12.3 see http://www.urbanist-magazin.de/2015/06/das-konzept-der-effektiven-geschwindigkeit/
 			// which points to http://www.stadtentwicklung.berlin.de/verkehr/politik_planung/zahlen_fakten/download/Mobilitaet_dt_komplett.pdf
 			// Setting this to 15 after all since we are stuck in car congestion.
@@ -89,9 +85,6 @@ final class BerlinUtils {
 		strs.add("4611699_21487242_272408975-4611699_272408975_25662562") ;
 		strs.add("4611699_27005148_25664841-4611699_25664841_21487242") ;
 		strs.add("4611699_27005148_25664841-4611699_25664841_21487242") ;
-		strs.add("4067932_29207434_29194639") ;
-		strs.add("15972319_524739197_29207434") ;
-		strs.add("24913519_29221504_768082167-24913519_768082167_669878077-24913519_669878077_25665809-24913519_25665809_31160079-24913519_31160079_611330949-24913519_611330949_160503256-15972319_160503256_524739197") ;
 	
 		// initially forgotten:
 		strs.add("61584187_29194639_29194675-61584187_29194675_258127852-61584187_258127852_29194673-61584187_29194673_29194671-61584187_29194671_29194669-61584187_29194669_21487183-54048863_21487183_160493853-15971197_160493853_160493846-4611699_160493846_29193497-4611699_29193497_25665646-4611699_25665646_25665636-4611699_25665636_271296293-4611699_271296293_262455378-4611699_262455378_262455379-4611699_262455379_27005148") ;
@@ -100,11 +93,7 @@ final class BerlinUtils {
 		strs.add("24240246_25662552_271388393-24240246_271388393_25664742-24240246_25664742_25661397") ;
 		strs.add("24913297_25661397_25662689") ;
 		strs.add("24913297_25662689_272409455-24913297_272409455_25664779-24913297_25664779_538796570-24913297_538796570_450169274-24913297_450169274_262455363-24913297_262455363_29207420-24913297_29207420_538795322-24913297_538795322_687892314-24913297_687892314_538795142-24913297_538795142_25664959-24913297_25664959_272411798-24913297_272411798_542370615-24913297_542370615_25665029-66514480_25665029_29207429-66514480_29207429_29207422-56927201_29207422_160493838-15971193_160493838_160493831-15971196_160493831_25665007-54048862_25665007_25665987-54048862_25665987_441784215-54048862_441784215_258127856-54048862_258127856_441784220-54048862_441784220_258127854-54048862_258127854_697323163-54048862_697323163_697323164") ;
-		strs.add("54048862_697323164_441784236-54048862_441784236_29207821") ;
-		strs.add("23013165_29207821_160503259") ;
-		strs.add("4611698_160503259_341340983-4611698_341340983_171440823-4611698_171440823_25665988-4611698_25665988_341340986") ;
-		strs.add("4611698_341340986_29221506") ;
-	
+
 		for ( String str : strs ) { 
 			Link link = network.getLinks().get( Id.createLinkId(str) ) ;
 			Gbl.assertNotNull(link);
@@ -112,53 +101,17 @@ final class BerlinUtils {
 		}
 	}
 
-	static void setTunnelLinkIds(NoiseConfigGroup noiseParameters) {
+//	static void setTunnelLinkIds(NoiseConfigGroup noiseParameters) {
 		// yyyyyy Same link ids?  Otherwise ask student
-		Set<Id<Link>> tunnelLinkIDs = new HashSet<>();
-		tunnelLinkIDs.add(Id.create("108041", Link.class));
-		tunnelLinkIDs.add(Id.create("108142", Link.class));
-		tunnelLinkIDs.add(Id.create("108970", Link.class));
-		tunnelLinkIDs.add(Id.create("109085", Link.class));
-		tunnelLinkIDs.add(Id.create("109757", Link.class));
-		tunnelLinkIDs.add(Id.create("109919", Link.class));
-		tunnelLinkIDs.add(Id.create("110060", Link.class));
-		tunnelLinkIDs.add(Id.create("110226", Link.class));
-		tunnelLinkIDs.add(Id.create("110164", Link.class));
-		tunnelLinkIDs.add(Id.create("110399", Link.class));
-		tunnelLinkIDs.add(Id.create("96503", Link.class));
-		tunnelLinkIDs.add(Id.create("110389", Link.class));
-		tunnelLinkIDs.add(Id.create("110116", Link.class));
-		tunnelLinkIDs.add(Id.create("110355", Link.class));
-		tunnelLinkIDs.add(Id.create("92604", Link.class));
-		tunnelLinkIDs.add(Id.create("92603", Link.class));
-		tunnelLinkIDs.add(Id.create("25651", Link.class));
-		tunnelLinkIDs.add(Id.create("25654", Link.class));
-		tunnelLinkIDs.add(Id.create("112540", Link.class));
-		tunnelLinkIDs.add(Id.create("112556", Link.class));
-		tunnelLinkIDs.add(Id.create("5052", Link.class));
-		tunnelLinkIDs.add(Id.create("5053", Link.class));
-		tunnelLinkIDs.add(Id.create("5380", Link.class));
-		tunnelLinkIDs.add(Id.create("5381", Link.class));
-		tunnelLinkIDs.add(Id.create("106309", Link.class));
-		tunnelLinkIDs.add(Id.create("106308", Link.class));
-		tunnelLinkIDs.add(Id.create("26103", Link.class));
-		tunnelLinkIDs.add(Id.create("26102", Link.class));
-		tunnelLinkIDs.add(Id.create("4376", Link.class));
-		tunnelLinkIDs.add(Id.create("4377", Link.class));
-		tunnelLinkIDs.add(Id.create("106353", Link.class));
-		tunnelLinkIDs.add(Id.create("106352", Link.class));
-		tunnelLinkIDs.add(Id.create("103793", Link.class));
-		tunnelLinkIDs.add(Id.create("103792", Link.class));
-		tunnelLinkIDs.add(Id.create("26106", Link.class));
-		tunnelLinkIDs.add(Id.create("26107", Link.class));
-		tunnelLinkIDs.add(Id.create("4580", Link.class));
-		tunnelLinkIDs.add(Id.create("4581", Link.class));
-		tunnelLinkIDs.add(Id.create("4988", Link.class));
-		tunnelLinkIDs.add(Id.create("4989", Link.class));
-		tunnelLinkIDs.add(Id.create("73496", Link.class));
-		tunnelLinkIDs.add(Id.create("73497", Link.class));
-		noiseParameters.setTunnelLinkIDsSet(tunnelLinkIDs);
-	}
+//		Set<Id<Link>> tunnelLinkIDs = new HashSet<>();
+//		tunnelLinkIDs.add(Id.create("108041", Link.class));
+//		tunnelLinkIDs.add(Id.create("108142", Link.class));
+//		tunnelLinkIDs.add(Id.create("108970", Link.class));
+//		tunnelLinkIDs.add(Id.create("109085", Link.class));
+//		tunnelLinkIDs.add(Id.create("109757", Link.class));
+
+//		noiseParameters.setTunnelLinkIDsSet(tunnelLinkIDs);
+//	}
 
 	static void createActivityParameters(Config config) {
 		{
@@ -242,23 +195,23 @@ final class BerlinUtils {
 		}
 	}
 
-	static void mergeNoiseFiles(String outputFilePath) {
-		final String receiverPointsFile = outputFilePath + "/receiverPoints/receiverPoints.csv" ;
+//	static void mergeNoiseFiles(String outputFilePath) {
+//		final String receiverPointsFile = outputFilePath + "/receiverPoints/receiverPoints.csv" ;
 	
-		final String[] labels = { "immission", "consideredAgentUnits", "damages_receiverPoint" };
-		final String[] workingDirectories = { outputFilePath + "/immissions/" , outputFilePath + "/consideredAgentUnits/", outputFilePath + "/damages_receiverPoint/" };
+//		final String[] labels = { "immission", "consideredAgentUnits", "damages_receiverPoint" };
+//		final String[] workingDirectories = { outputFilePath + "/immissions/" , outputFilePath + "/consideredAgentUnits/", outputFilePath + "/damages_receiverPoint/" };
 	
 	
-		MergeNoiseCSVFile merger = new MergeNoiseCSVFile() ;
-		merger.setWorkingDirectory(workingDirectories);
-		merger.setReceiverPointsFile(receiverPointsFile);
-		merger.setLabel(labels);
-		merger.setOutputFormat(OutputFormat.xyt);
-		merger.setThreshold(1.);
-		merger.setOutputDirectory(outputFilePath);
-		merger.run();
+//		MergeNoiseCSVFile merger = new MergeNoiseCSVFile() ;
+//		merger.setWorkingDirectory(workingDirectories);
+//		merger.setReceiverPointsFile(receiverPointsFile);
+//		merger.setLabel(labels);
+//		merger.setOutputFormat(OutputFormat.xyt);
+//		merger.setThreshold(1.);
+//		merger.setOutputDirectory(outputFilePath);
+//		merger.run();
 	
-	}
+//	}
 
 	static void createAndAddModeVehicleTypes(Vehicles vehicles) {
 		{
@@ -316,35 +269,35 @@ final class BerlinUtils {
 		}
 	}
 
-	@SuppressWarnings("unused")
-	private static void computeNoise(final double sampleFactor, Config config, Scenario scenario) {
+//	@SuppressWarnings("unused")
+//	private static void computeNoise(final double sampleFactor, Config config, Scenario scenario) {
 		// noise parameters
-		NoiseConfigGroup noiseParameters = (NoiseConfigGroup) scenario.getConfig().getModule("noise");
+//		NoiseConfigGroup noiseParameters = (NoiseConfigGroup) scenario.getConfig().getModule("noise");
 	
-		String[] consideredActivitiesForReceiverPointGrid = {"home", "work", "educ_primary", "educ_secondary", "educ_higher", "kiga"};
-		noiseParameters.setConsideredActivitiesForReceiverPointGridArray(consideredActivitiesForReceiverPointGrid);
+//		String[] consideredActivitiesForReceiverPointGrid = {"home", "work", "educ_primary", "educ_secondary", "educ_higher", "kiga"};
+//		noiseParameters.setConsideredActivitiesForReceiverPointGridArray(consideredActivitiesForReceiverPointGrid);
 	
-		noiseParameters.setReceiverPointGap(2000.); // 200 is possible but overkill as long as this is not debugged.
+//		noiseParameters.setReceiverPointGap(2000.); // 200 is possible but overkill as long as this is not debugged.
 	
-		String[] consideredActivitiesForDamages = {"home", "work", "educ_primary", "educ_secondary", "educ_higher", "kiga"};
-		noiseParameters.setConsideredActivitiesForDamageCalculationArray(consideredActivitiesForDamages);
+//		String[] consideredActivitiesForDamages = {"home", "work", "educ_primary", "educ_secondary", "educ_higher", "kiga"};
+//		noiseParameters.setConsideredActivitiesForDamageCalculationArray(consideredActivitiesForDamages);
 	
-		noiseParameters.setScaleFactor(1./sampleFactor); // yyyyyy sample size!!!!
+//		noiseParameters.setScaleFactor(1./sampleFactor); // yyyyyy sample size!!!!
 	
-		setTunnelLinkIds(noiseParameters);
-	
-		// ---
-	
-		String outputDirectory = config.controler().getOutputDirectory()+"/noise/" ;
-	
-		NoiseOfflineCalculation noiseCalculation = new NoiseOfflineCalculation(scenario, outputDirectory);
-		noiseCalculation.run();		
+//		setTunnelLinkIds(noiseParameters);
 	
 		// ---
 	
-		String outputFilePath = outputDirectory + "analysis_it." + config.controler().getLastIteration() + "/";
-		mergeNoiseFiles(outputFilePath);
-	}
+//		String outputDirectory = config.controler().getOutputDirectory()+"/noise/" ;
+	
+//		NoiseOfflineCalculation noiseCalculation = new NoiseOfflineCalculation(scenario, outputDirectory);
+//		noiseCalculation.run();		
+	
+		// ---
+	
+//		String outputFilePath = outputDirectory + "analysis_it." + config.controler().getLastIteration() + "/";
+//		mergeNoiseFiles(outputFilePath);
+//	}
 
 	static void createMultimodalParameters(Config config) {
 		config.qsim().setVehiclesSource(VehiclesSource.modeVehicleTypesFromVehiclesData);

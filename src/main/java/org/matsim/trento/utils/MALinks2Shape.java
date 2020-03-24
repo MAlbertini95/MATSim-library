@@ -45,20 +45,23 @@ import org.matsim.utils.gis.matsim2esri.network.Links2ESRIShape;
 import org.matsim.utils.gis.matsim2esri.network.PolygonFeatureGenerator;
 
 /**
- * @author nagel
+ * @author MALbertini based on nagel code
  *
  */
-public class KNLinks2Shape {
+public class MALinks2Shape {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		
-		String defaultCRS = "DHDN_GK4";
+		args[0]= "Path to Input Network" ;
+		
+		//Verificare Authority Name e codice del CRS;
+		String defaultCRS = "EPSG3857";  
 		boolean commonWealth = true ;
 		
-		String outputFileP = "t.shp" ;
+		String outputFileP = "t.shp" ; //Per generare il file di output
 		
 		Config config = ConfigUtils.createConfig() ;
 		config.network().setInputFile( args[0] );

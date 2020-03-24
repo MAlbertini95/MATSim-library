@@ -36,7 +36,7 @@ import org.matsim.core.utils.geometry.geotools.MGC;
 import org.matsim.core.utils.io.IOUtils;
 import org.matsim.vehicles.Vehicle;
 
-import org.matsim.trento.utils.JbUtils;
+import org.matsim.trento.utils.GeomUtils;
 
 /**
  * @author jbischoff
@@ -307,7 +307,7 @@ public class ZoneBasedTaxiStatusAnalysis implements LinkEnterEventHandler, Activ
 	}
 
 	private int getTimeBin(double time) {
-		return JbUtils.getHour(time);
+		return GeomUtils.getHour(time);
 	}
 
 }

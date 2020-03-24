@@ -30,15 +30,11 @@ import org.matsim.core.network.io.MatsimNetworkReader;
 
 import org.matsim.trento.analysis.TravelTimeAnalysis;
 import org.matsim.trento.analysis.TravelDistanceTimeEvaluator;
-import org.matsim.trento.utils.JbUtils;
+import org.matsim.trento.utils.GeomUtils;
 
 /**
- * @author  MAlbertini
+ * @author  MAlbertini, based on JBischoff
  *
- */
-
-/* creato da JBischoff, av/evaluation, usato per flowpaper
- * 
  */
 
 public class RunTrentoATEvaluation {
@@ -53,7 +49,7 @@ public class RunTrentoATEvaluation {
 
 //		Trento
 		String shapeFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/Sez2011/TrentoSez.shp";
-		Map<String,Geometry> geo = JbUtils.readShapeFileAndExtractGeometry(shapeFile, "sez"); //Key o sez?
+		Map<String,Geometry> geo = GeomUtils.readShapeFileAndExtractGeometry(shapeFile, "sez"); //Key o sez?
 		
 		Network network = NetworkUtils.createNetwork() ;
 		new MatsimNetworkReader(network).readFile(networkFile);
