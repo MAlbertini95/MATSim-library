@@ -24,23 +24,16 @@ import org.matsim.contrib.av.robotaxi.fares.taxi.TaxiFareConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
-import org.matsim.contrib.taxi.run.TaxiConfigConsistencyChecker;
+import org.matsim.contrib.taxi.run.MultiModeTaxiModule;
 import org.matsim.contrib.taxi.run.TaxiConfigGroup;
-import org.matsim.contrib.taxi.run.TaxiModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.roadpricing.RoadPricingConfigGroup;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
-import ch.sbb.matsim.config.SwissRailRaptorConfigGroup;
 import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorModule;
-
-/* creato da JBischoff, av/accessibility/runtaxi, usato per flowpaper
- * 
- */
 
 /**
  * This class runs an example robotaxi scenario including fares. The simulation runs for 10 iterations, this takes
@@ -53,26 +46,23 @@ import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorModule;
 public class RunRobotaxiBerlin {
 
     public static void main(String[] args) {
-        String configFile = "scenarios/AT introduction/AT_Config.xml";
+        String configFile = "D:/runs-svn/avsim/av_accessibility/input/taxiconfig.xml";
         RunRobotaxiBerlin.run(configFile, false);
     }
 
     public static void run(String configFile, boolean otfvis) {
-        Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new SwissRailRaptorConfigGroup(), new RoadPricingConfigGroup(), new TaxiConfigGroup(),
+        Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new TaxiConfigGroup(),
                 new OTFVisConfigGroup(), new TaxiFareConfigGroup());
         createControler(config, otfvis).run();
     }
 
     public static Controler createControler(Config config, boolean otfvis) {
-        config.addConfigConsistencyChecker(new TaxiConfigConsistencyChecker());
-        config.checkConsistency();
-
-        String mode = TaxiConfigGroup.get(config).getMode();
+        String mode = TaxiConfigGroup.getSingleModeTaxiConfig(config).getMode();
         Scenario scenario = ScenarioUtils.loadScenario(config);
 
         Controler controler = new Controler(scenario);
 		controler.addOverridingModule(new DvrpModule());
-        controler.addOverridingModule(new TaxiModule());
+        controler.addOverridingModule(new MultiModeTaxiModule());
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(mode));
 
         controler.addOverridingModule(new AbstractModule() {

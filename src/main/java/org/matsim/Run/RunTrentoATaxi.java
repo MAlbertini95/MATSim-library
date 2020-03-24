@@ -25,8 +25,11 @@ import org.matsim.contrib.av.robotaxi.fares.taxi.TaxiFareModule;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
+import org.matsim.contrib.roadpricing.RoadPricingConfigGroup;
 import org.matsim.contrib.roadpricing.RoadPricingModule;
+import org.matsim.contrib.taxi.run.MultiModeTaxiConfigGroup;
 import org.matsim.contrib.taxi.run.TaxiConfigGroup;
+import org.matsim.contrib.taxi.run.MultiModeTaxiModule;
 import org.matsim.contrib.taxi.util.TaxiSimulationConsistencyChecker;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
@@ -50,17 +53,14 @@ public class RunTrentoATaxi{
 			Gbl.assertIf( args[0] != null && !args[0].equals( "" ) );
 		}
 
-		Config config = ConfigUtils.loadConfig( args, new DvrpConfigGroup(), new TaxiConfigGroup(), new TaxiFareConfigGroup(),new RoadPricingConfigGroup(), new SwissRailRaptorConfigGroup() ) ;
+		Config config = ConfigUtils.loadConfig( args, new DvrpConfigGroup(), new MultiModeTaxiConfigGroup(), new TaxiFareConfigGroup(),new RoadPricingConfigGroup(), new SwissRailRaptorConfigGroup() ) ;
 		
 		// possibly modify config here----------------------------------------------------------------------------------------------
 		
 //		config.controler().setLastIteration( 10 );
 		config.controler().setOverwriteFileSetting( OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists );
 		config.plansCalcRoute().setInsertingAccessEgressWalk( true );
-		config.addConfigConsistencyChecker(new TaxiSimulationConsistencyChecker());
 		config.checkConsistency();
-
-		String mode = TaxiConfigGroup.get(config).getMode();
 
 		// ------------------------------------------------------------------------------------------------------------------------
 		
@@ -73,12 +73,14 @@ public class RunTrentoATaxi{
 		Controler controler = new Controler( scenario ) ;
 		
 		// possibly modify controler here------------------------------------------------------------------------------------------
+
+		String mode = TaxiConfigGroup.getSingleModeTaxiConfig(config).getMode();
 		
 		controler.addOverridingModule(new SwissRailRaptorModule());
 //		controler.addOverridingModule( new OTFVisLiveModule() ) ;
 		controler.addOverridingModule(new TaxiFareModule());
 		controler.addOverridingModule(new DvrpModule());
-        controler.addOverridingModule(new TaxiModule());
+        controler.addOverridingModule(new MultiModeTaxiModule());
 		controler.addOverridingModule( new RoadPricingModule() );   
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(mode));    
 		

@@ -34,11 +34,11 @@ import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
 import org.matsim.contrib.dvrp.trafficmonitoring.DvrpTravelTimeModule;
 import org.matsim.contrib.dvrp.trafficmonitoring.TravelTimeUtils;
+import org.matsim.contrib.roadpricing.RoadPricingConfigGroup;
+import org.matsim.contrib.roadpricing.RoadPricingModule;
 import org.matsim.contrib.taxi.run.MultiModeTaxiConfigGroup;
 import org.matsim.contrib.taxi.run.MultiModeTaxiModule;
-import org.matsim.contrib.taxi.run.TaxiConfigConsistencyChecker;
 import org.matsim.contrib.taxi.run.TaxiConfigGroup;
-import org.matsim.contrib.taxi.run.TaxiModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.AbstractModule;
@@ -47,9 +47,6 @@ import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.matsim.core.gbl.Gbl;
 import org.matsim.core.router.util.TravelTime;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.roadpricing.RoadPricingConfigGroup;
-import org.matsim.roadpricing.RoadPricingModule;
-
 import com.google.inject.name.Names;
 
 import ch.sbb.matsim.config.SwissRailRaptorConfigGroup;
@@ -76,7 +73,6 @@ public class RunTrentoATonly{
 
 		config.controler().setOverwriteFileSetting( OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists );
 		config.plansCalcRoute().setInsertingAccessEgressWalk( false );
-		config.addConfigConsistencyChecker(new TaxiConfigConsistencyChecker());
 		config.checkConsistency();
 		
 		// ------------------------------------------------------------------------------------------------------------------------
@@ -89,7 +85,7 @@ public class RunTrentoATonly{
 		
 		Controler controler = new Controler( scenario ) ;
 		
-		String mode = TaxiConfigGroup.get(config).getMode();	
+		String mode = TaxiConfigGroup.getSingleModeTaxiConfig(config).getMode();	
 		
 //		double flowEfficiencyFactor= 2.0;
 //		String inputEvents="scenarios/Car2AT/Calibrated.output_events.xml.gz";
@@ -110,7 +106,7 @@ public class RunTrentoATonly{
 //		controler.addOverridingModule( new OTFVisLiveModule() ) ;
 		controler.addOverridingModule(new TaxiFareModule());
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new TaxiModule());
+		controler.addOverridingModule(new MultiModeTaxiModule());
 //		controler.addOverridingModule(new AvIncreasedCapacityModule(flowEfficiencyFactor));
 		controler.addOverridingModule( new RoadPricingModule() );
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(mode));

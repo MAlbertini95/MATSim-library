@@ -35,7 +35,6 @@ import org.matsim.core.config.groups.PlanCalcScoreConfigGroup.ModeParams;
 import org.matsim.core.config.groups.PlansCalcRouteConfigGroup.ModeRoutingParams;
 import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.gbl.Gbl;
-import org.matsim.run.RunBerlinScenario;
 
 class KNRunBerlinScenario {
 	private enum MyScenario { bln1pct, bln10pct, equil } ;

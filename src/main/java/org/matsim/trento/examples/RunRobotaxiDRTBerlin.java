@@ -19,7 +19,6 @@
 
 package org.matsim.trento.examples;
 
-import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorModule;
 import org.matsim.contrib.drt.run.DrtConfigGroup;
 import org.matsim.contrib.drt.run.DrtControlerCreator;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
@@ -28,9 +27,7 @@ import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
-/* creato da JBischoff, av/accessibility/runtaxi, usato per flowpaper
- * 
- */
+import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorModule;
 
 /**
  * This class runs an example robotaxi scenario including fares. The simulation runs for 10 iterations, this takes
@@ -54,11 +51,11 @@ public class RunRobotaxiDRTBerlin {
     public static void run(String configFile, boolean otfvis, int run) {
         Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DrtConfigGroup(),
                 new OTFVisConfigGroup());
-        DrtConfigGroup.get(config).setRequestRejection(false);
-        DrtConfigGroup.get(config).setMaxWaitTime(180);
+        DrtConfigGroup.getSingleModeDrtConfig(config).setRejectRequestIfMaxWaitOrTravelTimeViolated(false);
+        DrtConfigGroup.getSingleModeDrtConfig(config).setMaxWaitTime(180);
         config.controler().setOutputDirectory(config.controler().getOutputDirectory() + run);
         config.plans().setInputFile("taxiplans_" + run + ".xml.gz");
-        Controler controler = DrtControlerCreator.createControler(config, false);
+        Controler controler = DrtControlerCreator.createControlerWithSingleModeDrt(config, false);
         controler.addOverridingModule(new SwissRailRaptorModule());
         controler.run();
     }

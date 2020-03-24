@@ -19,44 +19,22 @@
 package org.matsim.Run;
 
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.api.core.v01.TransportMode;
-import org.matsim.api.core.v01.network.Link;
-import org.matsim.api.core.v01.network.Network;
-import org.matsim.core.network.NetworkChangeEvent;
-import org.matsim.core.network.NetworkChangeEvent.ChangeType;
-import org.matsim.core.network.NetworkChangeEvent.ChangeValue;
-import org.matsim.core.network.NetworkUtils;
-import org.matsim.contrib.av.flow.AvIncreasedCapacityModule;
 import org.matsim.contrib.av.robotaxi.fares.drt.DrtFareConfigGroup;
 import org.matsim.contrib.av.robotaxi.fares.drt.DrtFareModule;
-import org.matsim.contrib.av.robotaxi.fares.taxi.TaxiFareConfigGroup;
-import org.matsim.contrib.av.robotaxi.fares.taxi.TaxiFareModule;
-import org.matsim.contrib.drt.run.DrtConfigConsistencyChecker;
 import org.matsim.contrib.drt.run.DrtConfigGroup;
 import org.matsim.contrib.drt.run.DrtControlerCreator;
-import org.matsim.contrib.drt.run.DrtModule;
+import org.matsim.contrib.drt.run.MultiModeDrtModule;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
-import org.matsim.contrib.dvrp.trafficmonitoring.DvrpTravelTimeModule;
-import org.matsim.contrib.dvrp.trafficmonitoring.TravelTimeUtils;
-import org.matsim.contrib.taxi.run.MultiModeTaxiConfigGroup;
-import org.matsim.contrib.taxi.run.MultiModeTaxiModule;
-import org.matsim.contrib.taxi.run.TaxiConfigConsistencyChecker;
-import org.matsim.contrib.taxi.run.TaxiConfigGroup;
-import org.matsim.contrib.taxi.run.TaxiModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.matsim.core.gbl.Gbl;
-import org.matsim.core.router.util.TravelTime;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.roadpricing.RoadPricingConfigGroup;
-import org.matsim.roadpricing.RoadPricingModule;
-
-import com.google.inject.name.Names;
+import org.matsim.contrib.roadpricing.RoadPricingConfigGroup;
+import org.matsim.contrib.roadpricing.RoadPricingModule;
 
 import ch.sbb.matsim.config.SwissRailRaptorConfigGroup;
 import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorModule;
@@ -82,7 +60,6 @@ public class RunTrentoATonlyDRT{
 
 		config.controler().setOverwriteFileSetting( OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists );
 		config.plansCalcRoute().setInsertingAccessEgressWalk( true );
-		config.addConfigConsistencyChecker(new DrtConfigConsistencyChecker());
 		config.checkConsistency();
 		
 		// ------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +73,7 @@ public class RunTrentoATonlyDRT{
 		
 		Controler controler = new Controler( scenario ) ;
 		
-		String mode = DrtConfigGroup.get(config).getMode();	
+		String mode = DrtConfigGroup.getSingleModeDrtConfig(config).getMode();	
 		
 //		double flowEfficiencyFactor= 2.0;
 //		String inputEvents="scenarios/Car2AT/Calibrated.output_events.xml.gz";
@@ -117,7 +94,7 @@ public class RunTrentoATonlyDRT{
 //		controler.addOverridingModule( new OTFVisLiveModule() ) ;
 		controler.addOverridingModule( new DrtFareModule() );
 		controler.addOverridingModule(new DvrpModule());
-        controler.addOverridingModule( new DrtModule() );
+        controler.addOverridingModule( new MultiModeDrtModule() );
 //		controler.addOverridingModule(new AvIncreasedCapacityModule(flowEfficiencyFactor));
 		controler.addOverridingModule( new RoadPricingModule() );
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(mode));

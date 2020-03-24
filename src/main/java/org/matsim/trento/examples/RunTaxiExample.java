@@ -24,34 +24,40 @@ import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
 import org.matsim.contrib.otfvis.OTFVisLiveModule;
-import org.matsim.contrib.taxi.run.TaxiConfigConsistencyChecker;
+import org.matsim.contrib.taxi.run.MultiModeTaxiConfigGroup;
+import org.matsim.contrib.taxi.run.MultiModeTaxiModule;
 import org.matsim.contrib.taxi.run.TaxiConfigGroup;
-import org.matsim.contrib.taxi.run.TaxiModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
-public class RunTaxiExample {
-	private static final String CONFIG_FILE = "mielec_2014_02/mielec_taxi_config.xml";
+/**
+ * An example class to Run a taxi scenario based on a config file.
+ * Note that several different optimizers may be set directly within the config file.
+ * Two examples are provided here: A rulebased and an assignment based dispatch algorithm.
+ */
 
-	public static void run(boolean otfvis, int lastIteration) {
+public class RunTaxiExample {
+	public static final String CONFIG_FILE_RULEBASED = "scenarios/mielec_2014_02/mielec_taxi_config_rulebased.xml";
+	public static final String CONFIG_FILE_ASSIGNMENT = "scenarios/mielec_2014_02/mielec_taxi_config_assignment.xml";
+
+	public static void run(String configFile, boolean otfvis, int lastIteration) {
 		// load config
-		Config config = ConfigUtils.loadConfig(CONFIG_FILE, new TaxiConfigGroup(), new DvrpConfigGroup(),
+		Config config = ConfigUtils.loadConfig(configFile, new MultiModeTaxiConfigGroup(), new DvrpConfigGroup(),
 				new OTFVisConfigGroup());
 		config.controler().setLastIteration(lastIteration);
-		config.addConfigConsistencyChecker(new TaxiConfigConsistencyChecker());
-		config.checkConsistency();
-		String mode = TaxiConfigGroup.get(config).getMode();
 
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
 		// setup controler
 		Controler controler = new Controler(scenario);
+
+		String mode = TaxiConfigGroup.getSingleModeTaxiConfig(config).getMode();
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new TaxiModule());
+		controler.addOverridingModule(new MultiModeTaxiModule());
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(mode));
 
 		if (otfvis) {
@@ -63,6 +69,7 @@ public class RunTaxiExample {
 	}
 
 	public static void main(String[] args) {
-		RunTaxiExample.run(false, 0); // switch to 'true' to turn on visualisation
+		//RunTaxiExample.run(CONFIG_FILE_RULEBASED,false, 0); // switch to 'true' to turn on visualisation
+		RunTaxiExample.run(CONFIG_FILE_ASSIGNMENT, false, 0); // switch to 'true' to turn on visualisation
 	}
 }

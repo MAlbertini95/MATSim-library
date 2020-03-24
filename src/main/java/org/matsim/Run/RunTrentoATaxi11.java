@@ -25,11 +25,11 @@ import org.matsim.contrib.av.robotaxi.fares.taxi.TaxiFareModule;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
+import org.matsim.contrib.roadpricing.RoadPricingConfigGroup;
+import org.matsim.contrib.roadpricing.RoadPricingModule;
 import org.matsim.contrib.taxi.run.MultiModeTaxiConfigGroup;
 import org.matsim.contrib.taxi.run.MultiModeTaxiModule;
-import org.matsim.contrib.taxi.run.TaxiConfigConsistencyChecker;
 import org.matsim.contrib.taxi.run.TaxiConfigGroup;
-import org.matsim.contrib.taxi.run.TaxiModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.AbstractModule;
@@ -37,8 +37,6 @@ import org.matsim.core.controler.Controler;
 import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.matsim.core.gbl.Gbl;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.roadpricing.RoadPricingConfigGroup;
-import org.matsim.roadpricing.RoadPricingModule;
 
 import ch.sbb.matsim.config.SwissRailRaptorConfigGroup;
 import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorModule;
@@ -63,7 +61,6 @@ public class RunTrentoATaxi11{
 //		config.controler().setLastIteration( 1 );
 		config.controler().setOverwriteFileSetting( OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists );
 		config.plansCalcRoute().setInsertingAccessEgressWalk( true );
-		config.addConfigConsistencyChecker(new TaxiConfigConsistencyChecker());
 		config.checkConsistency();
 		
 		// ------------------------------------------------------------------------------------------------------------------------
@@ -76,7 +73,7 @@ public class RunTrentoATaxi11{
 		
 		Controler controler = new Controler( scenario ) ;
 		
-		String mode = TaxiConfigGroup.get(config).getMode();	
+		String mode = TaxiConfigGroup.getSingleModeTaxiConfig(config).getMode();	
 		
 		// possibly modify controler here------------------------------------------------------------------------------------------
 		
@@ -84,7 +81,7 @@ public class RunTrentoATaxi11{
 //		controler.addOverridingModule( new OTFVisLiveModule() ) ;
 		controler.addOverridingModule(new TaxiFareModule());
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new TaxiModule());
+		controler.addOverridingModule(new MultiModeTaxiModule());
 		controler.addOverridingModule( new RoadPricingModule() );
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(mode));
 		
