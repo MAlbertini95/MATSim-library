@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Generator;
+package org.matsim.Generator.Demand;
 
 import java.util.function.Function;
 

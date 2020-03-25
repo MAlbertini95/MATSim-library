@@ -19,6 +19,9 @@
 
 package org.matsim.Analysis;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.config.Config;
@@ -26,18 +29,15 @@ import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.events.EventsUtils;
 import org.matsim.core.events.MatsimEventsReader;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.core.utils.collections.Tuple;
 
-public class LinkDemandAnalysisRun {
-	
-	private static String OUTPUT_BASE_DIR = "/Users/ihab/Documents/workspace/runs-svn/sav-pricing-setupA/output_savA-3d";
-	private String runId = "savA-3d";
+public class LinkDemandAnalysisModeFilterRun {
 
-	private String vehicleTypePrefix = "rt";
-	private Tuple<Double, Double> timeBin = new Tuple<Double, Double>(8. * 3600, 9. * 3600);
+	private static String runId = "run3_gesundeStadt-mit-RSV";
+	private static String OUTPUT_BASE_DIR = "/Users/ihab/Documents/workspace/runs-svn/nemo/wissenschaftsforum2019/"+ runId +"/";
+
 	private String outputDirectory;
 
-	public LinkDemandAnalysisRun(String outputDirectory) {
+	public LinkDemandAnalysisModeFilterRun(String outputDirectory) {
 		this.outputDirectory = outputDirectory;
 	}
 
@@ -53,42 +53,35 @@ public class LinkDemandAnalysisRun {
 		}
 	
 		Config config;
+		config = ConfigUtils.createConfig();
+		config.network().setInputCRS("EPSG:25832");
+		config.global().setCoordinateSystem("EPSG:25832");
+		
 		if (runId != null) {
-			config = ConfigUtils.loadConfig(outputDirectory + runId + ".output_config.xml");
-			config.plans().setInputFile(null);
-			config.network().setChangeEventsInputFile(null);
-			config.vehicles().setVehiclesFile(null);
 			config.network().setInputFile(outputDirectory + runId + ".output_network.xml.gz");
 		} else {
-			config = ConfigUtils.loadConfig(outputDirectory + "output_config.xml");
-			config.plans().setInputFile(null);
-			config.network().setChangeEventsInputFile(null);
-			config.vehicles().setVehiclesFile(null);
 			config.network().setInputFile(outputDirectory + "output_network.xml.gz");
 		}
 		
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 		EventsManager events = EventsUtils.createEventsManager();
 				
-		LinkDemandEventHandler handler = new LinkDemandEventHandler(scenario.getNetwork(), vehicleTypePrefix, timeBin);
+		Set<String> modesToInclude = new HashSet<>();
+		modesToInclude.add("car");
+		ModeFilter filter = new ModeFilter(modesToInclude);
+		
+		LinkDemandModeFilterEventHandler handler = new LinkDemandModeFilterEventHandler(scenario.getNetwork(), filter);
 		events.addHandler(handler);
 		
 		String eventsFile;
 		String analysis_output_file;
 		if (runId != null) {
 			eventsFile = outputDirectory + runId + ".output_events.xml.gz";
-			if (timeBin == null) {
-				analysis_output_file = outputDirectory + runId + ".link_dailyDemand_" + this.vehicleTypePrefix + ".csv";
-			} else {
-				analysis_output_file = outputDirectory + runId + ".link_dailyDemand_" + this.vehicleTypePrefix + "_" + timeBin.getFirst() + "-" + timeBin.getSecond() + ".csv";
-			}
+			analysis_output_file = outputDirectory + runId + ".link_dailyDemand_" + filter.toFileName() + ".csv";
+
 		} else {
 			eventsFile = outputDirectory + "output_events.xml.gz";
-			if (timeBin == null) {
-				analysis_output_file = outputDirectory  + "link_dailyDemand_" + this.vehicleTypePrefix + ".csv";
-			} else {
-				analysis_output_file = outputDirectory + "link_dailyDemand_" + this.vehicleTypePrefix + "_" + timeBin.getFirst() + "-" + timeBin.getSecond() + ".csv";
-			}
+			analysis_output_file = outputDirectory  + "link_dailyDemand_" + filter.toFileName() + ".csv";
 		}
 		
 		MatsimEventsReader reader = new MatsimEventsReader(events);
@@ -98,4 +91,3 @@ public class LinkDemandAnalysisRun {
 	}
 			 
 }
-		

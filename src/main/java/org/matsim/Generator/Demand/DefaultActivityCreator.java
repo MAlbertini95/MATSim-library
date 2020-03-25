@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Generator;
+package org.matsim.Generator.Demand;
 
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
