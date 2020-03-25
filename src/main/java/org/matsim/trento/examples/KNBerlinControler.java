@@ -18,7 +18,7 @@
  * *********************************************************************** */
 
 package org.matsim.trento.examples;
-
+/*
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.Scenario;
@@ -308,4 +308,4 @@ public final class KNBerlinControler {
 	}
 
 
-}
+} */
