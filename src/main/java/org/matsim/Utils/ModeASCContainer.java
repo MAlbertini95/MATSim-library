@@ -1,9 +1,9 @@
 /* *********************************************************************** *
- * project: org.matsim.*
+ * project: org.matsim.*												   *
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2016 by the members listed in the COPYING,        *
+ * copyright       : (C) 2008 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -17,4 +17,36 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Analysis;
+package org.matsim.Utils;
+
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+import com.google.inject.Singleton;
+
+/**
+ *
+ * @author Gunnar Flötteröd
+ *
+ */
+@Singleton
+public class ModeASCContainer {
+
+	private final Map<String, Double> mode2asc = new LinkedHashMap<>();
+
+	public ModeASCContainer() {
+	}
+
+	public synchronized double getASC(final String mode) {
+		return this.mode2asc.getOrDefault(mode, 0.0);
+	}
+
+	public synchronized void setASC(final String mode, final double asc) {
+		this.mode2asc.put(mode, asc);
+		Logger.getLogger(this.getClass()).info("Set ASC for mode " + mode + " to " + this.getASC(mode));
+	}
+
+}
