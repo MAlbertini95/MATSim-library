@@ -17,57 +17,52 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Analysis;
+package org.matsim.Analysis.Taxi;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.matsim.api.core.v01.network.Network;
+import org.matsim.api.core.v01.Id;
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.Analysis.Vehicle;
 import org.matsim.core.api.experimental.events.EventsManager;
+import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.events.EventsUtils;
 import org.matsim.core.events.MatsimEventsReader;
-import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.network.io.MatsimNetworkReader;
+import org.matsim.core.scenario.ScenarioUtils;
+
+import org.matsim.Analysis.Taxi.TaxiCustomerWaitTimeAnalyser;
+import org.matsim.Analysis.Taxi.TravelDistanceTimeEvaluator;
 
 /**
- * @author  teoal based on jbischoff, taxi/evaluation
+ * @author  jbischoff
  *
  */
-/**
- *
- */
-public class AnalyseTaxiOccupancies {
+public class EventsAnalyser {
+
 	public static void main(String[] args) {
-	
-		Network network = NetworkUtils.createNetwork();
-		String path = "D:/runs-svn/restored_old_IEEE_berlin_taxi/";
-		new MatsimNetworkReader(network).readFile(path+"only_berlin.xml.gz");
-		List<String> runs = new ArrayList<>();
-		runs.add("output_ASSIGNMENT_TP_1.0");
-		runs.add("output_ASSIGNMENT_TP_2.0");
-/*		runs.add("output_ASSIGNMENT_TP_3.0");
-		runs.add("output_ASSIGNMENT_TP_4.0");
-		runs.add("output_ASSIGNMENT_TW_1.0");
-		runs.add("output_ASSIGNMENT_TW_2.0");
-		runs.add("output_ASSIGNMENT_TW_3.0");
-		runs.add("output_ASSIGNMENT_TW_4.0");
-		runs.add("output_RULE_BASED_DSE_1.0");
-		runs.add("output_RULE_BASED_DSE_2.0");
-		runs.add("output_RULE_BASED_DSE_3.0");
-		runs.add("output_RULE_BASED_DSE_4.0");
-		runs.add("output_RULE_BASED_TW_1.0");
-		runs.add("output_RULE_BASED_TW_2.0");
-		runs.add("output_RULE_BASED_TW_3.0"); */
-		String output = "";
-		for (String run : runs){
-			String eventsfile = path+"/"+run+"/output_events.xml";
-			EventsManager events = EventsUtils.createEventsManager();
-			TaxiOccupancyDistanceEvaluator ev = new TaxiOccupancyDistanceEvaluator(network);
-			events.addHandler(ev);
-			new MatsimEventsReader(events).readFile(eventsfile);
-			String result = run + "\t"+ev.getEmptyKm()+"\t"+ev.getOccupiedKm()+"\n";
-			output = output + result;
+		String pre = "C:/Users/Joschka/Documents/shared-svn/projects/audi_av/";
+		String inputFile = pre+"runs/xx_with_events/21_jb/nullevents21.out.xml.gz";
+		EventsManager events = EventsUtils.createEventsManager();
+		Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
+		new MatsimNetworkReader(scenario.getNetwork()).readFile(pre+"scenario/networkc.xml.gz");
+		
+		TravelDistanceTimeEvaluator tdtc = new TravelDistanceTimeEvaluator(scenario.getNetwork(), 24*3600);
+		TaxiCustomerWaitTimeAnalyser twc = new TaxiCustomerWaitTimeAnalyser(scenario, Double.MAX_VALUE);
+		events.addHandler(twc);
+		for (int i = 0; i<10000;i++){
+			String v = "rt"+i;
+			Id<Vehicle> m = Id.create(v,Vehicle.class);
+			tdtc.addAgent(m);
 		}
-		System.out.println(output);
+		events.addHandler(tdtc);
+		MatsimEventsReader reader = new MatsimEventsReader(events);
+		reader.readFile(inputFile);
+		
+		twc.printTaxiCustomerWaitStatistics();
+		twc.writeCustomerWaitStats(pre+"runs/xx_with_events/waitstats.txt");
+		tdtc.printTravelDistanceStatistics();
+		tdtc.writeTravelDistanceStatsToFiles(pre+"runs/xx_with_events/distanceStats");
+				
+		
 	}
+
 }

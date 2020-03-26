@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Analysis;
+package org.matsim.Analysis.Taxi;
 
 import java.io.*;
 import java.util.*;
