@@ -29,6 +29,7 @@ import org.matsim.api.core.v01.population.Person;
 import org.matsim.api.core.v01.population.Plan;
 import org.matsim.api.core.v01.population.PlanElement;
 import org.matsim.api.core.v01.population.Population;
+import org.matsim.core.utils.misc.Time;
 
 /**
 * @author ikaddoura
@@ -76,6 +77,7 @@ public class PopulationTools {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private static void setActivityTypesAccordingToDuration(Plan plan, double timeCategorySize) {
 				
 		Leg previousLeg = null;
@@ -94,7 +96,7 @@ public class PopulationTools {
 				double startTime = Double.NEGATIVE_INFINITY;
 				double endTime = Double.NEGATIVE_INFINITY;
 			
-				if (act.getStartTime() >0 ) {
+				if (act.getStartTime() != Time.UNDEFINED_TIME ) {
 					startTime = act.getStartTime();
 				} else {
 					
@@ -124,7 +126,7 @@ public class PopulationTools {
 					throw new RuntimeException("No meaningful start time identified. Aborting...");
 				}
 				
-				if (act.getEndTime() >0 ) {
+				if (act.getEndTime() != Time.UNDEFINED_TIME ) {
 					endTime = act.getEndTime();
 				} else {
 					// Last activity!
@@ -174,6 +176,7 @@ public class PopulationTools {
 		}		
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void addActivityTimesOfSelectedPlanToPersonAttributes(Population population) {
 				
 		log.info("Writing activity times in selected plan to person attributes.");
@@ -204,7 +207,7 @@ public class PopulationTools {
 					double startTime = Double.NEGATIVE_INFINITY;
 					double endTime = Double.NEGATIVE_INFINITY;
 				
-					if (act.getStartTime() >0 ) {
+					if (act.getStartTime() != Time.UNDEFINED_TIME) {
 						startTime = act.getStartTime();
 					} else {
 						
@@ -230,7 +233,7 @@ public class PopulationTools {
 					}
 					
 					
-					if (act.getEndTime() >0 ) {
+					if (act.getEndTime() != Time.UNDEFINED_TIME ) {
 						endTime = act.getEndTime();
 					} else {
 						// Last activity!

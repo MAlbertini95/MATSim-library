@@ -40,7 +40,7 @@ import org.matsim.core.controler.ControlerListenerManager;
 import org.matsim.core.controler.events.IterationStartsEvent;
 import org.matsim.core.controler.listener.IterationStartsListener;
 import org.matsim.core.router.StageActivityTypeIdentifier;
-import org.matsim.core.router.TripRouter;
+import org.matsim.core.router.MainModeIdentifier;
 import org.matsim.core.scoring.EventsToActivities;
 import org.matsim.core.scoring.EventsToLegs;
 import org.matsim.core.scoring.PersonExperiencedActivity;
@@ -51,10 +51,6 @@ import com.google.inject.Inject;
 
 /**
  * @author  teoal based on jbischoff
- *
- */
-/**
- *
  */
 public class TripHistogram implements  EventsToLegs.LegHandler, EventsToActivities.ActivityHandler {
 
@@ -67,7 +63,7 @@ public class TripHistogram implements  EventsToLegs.LegHandler, EventsToActiviti
 	
 	
 	@Inject private Population population;
-	@Inject private TripRouter triprouter;
+	@Inject private MainModeIdentifier modeIdentifier;  //Consider switching to "AnalysisMainModeIdentifier", diverso e usato solo per analisi
 	
 	private final Map<Id<Person>, List<PlanElement>> agentLastTripRecord = new HashMap<>();
 
@@ -117,7 +113,7 @@ public class TripHistogram implements  EventsToLegs.LegHandler, EventsToActiviti
 			}
 		} else {
 			if ((planElementRecord != null)&&(!planElementRecord.isEmpty())) {
-				String mainMode = triprouter.getMainModeIdentifier().identifyMainMode(planElementRecord);
+				String mainMode = modeIdentifier.identifyMainMode(planElementRecord);
 				double tripDepartureTime = Double.MAX_VALUE;
 				double tripArrivalTime = Double.MAX_VALUE;
 				for (PlanElement pe : planElementRecord){

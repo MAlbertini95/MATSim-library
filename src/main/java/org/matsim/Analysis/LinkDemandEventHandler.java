@@ -20,6 +20,7 @@
 package org.matsim.Analysis;
 
 
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -33,7 +34,6 @@ import org.matsim.api.core.v01.events.LinkLeaveEvent;
 import org.matsim.api.core.v01.events.handler.LinkLeaveEventHandler;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
-import org.matsim.core.utils.collections.Tuple;
 
 /**
  * @author Ihab
@@ -42,23 +42,11 @@ import org.matsim.core.utils.collections.Tuple;
 public class LinkDemandEventHandler implements  LinkLeaveEventHandler {
 	private static final Logger log = Logger.getLogger(LinkDemandEventHandler.class);
 	private Network network;
-	private String vehTypePrefix;
-	private Tuple<Double, Double> timeBin;
 	
 	private Map<Id<Link>,Integer> linkId2demand = new HashMap<Id<Link>, Integer>();
-	private Map<Id<Link>,Integer> linkId2otherVehicles = new HashMap<Id<Link>, Integer>();
-	private Map<Id<Link>,Integer> linkId2specificVehicles = new HashMap<Id<Link>, Integer>();
 
-	public LinkDemandEventHandler(Network network, String taxiPrefix) {
+	public LinkDemandEventHandler(Network network) {
 		this.network = network;
-		this.vehTypePrefix = taxiPrefix;
-		this.timeBin = null;
-	}
-	
-	public LinkDemandEventHandler(Network network, String taxiPrefix, Tuple<Double, Double> timeBin) {
-		this.network = network;
-		this.vehTypePrefix = taxiPrefix;
-		this.timeBin = timeBin;
 	}
 
 	@Override
@@ -69,48 +57,12 @@ public class LinkDemandEventHandler implements  LinkLeaveEventHandler {
 	@Override
 	public void handleEvent(LinkLeaveEvent event) {
 		
-		boolean accountForEvent = false;
-					
-		if (timeBin == null) {
-			accountForEvent = true;
-		} else {
-			if (event.getTime() >= timeBin.getFirst() && event.getTime() < timeBin.getSecond()) {
-				accountForEvent = true;
-			} else {
-				accountForEvent = false;
-			}
-		}
-		
-		if (accountForEvent) {
-			if (this.linkId2demand.containsKey(event.getLinkId())) {
-				int agents = this.linkId2demand.get(event.getLinkId());
-				this.linkId2demand.put(event.getLinkId(), agents + 1);
-				
-			} else {
-				this.linkId2demand.put(event.getLinkId(), 1);
-			}
+		if (this.linkId2demand.containsKey(event.getLinkId())) {
+			int agents = this.linkId2demand.get(event.getLinkId());
+			this.linkId2demand.put(event.getLinkId(), agents + 1);
 			
-			if (event.getVehicleId().toString().startsWith(vehTypePrefix)) {
-
-				if (this.linkId2specificVehicles.containsKey(event.getLinkId())) {
-					int agents = this.linkId2specificVehicles.get(event.getLinkId());
-					this.linkId2specificVehicles.put(event.getLinkId(), agents + 1);
-					
-				} else {
-					this.linkId2specificVehicles.put(event.getLinkId(), 1);
-				}
-				
-			} else {
-				
-				if (this.linkId2otherVehicles.containsKey(event.getLinkId())) {
-					int agents = this.linkId2otherVehicles.get(event.getLinkId());
-					this.linkId2otherVehicles.put(event.getLinkId(), agents + 1);
-					
-				} else {
-					this.linkId2otherVehicles.put(event.getLinkId(), 1);
-				}
-				
-			}
+		} else {
+			this.linkId2demand.put(event.getLinkId(), 1);
 		}
 	}
 
@@ -119,28 +71,16 @@ public class LinkDemandEventHandler implements  LinkLeaveEventHandler {
 		
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			bw.write("link;agents;" + vehTypePrefix + "_vehicles;otherVehicles");
+			bw.write("link;agents");
 			bw.newLine();
 			
 			for (Id<Link> linkId : this.network.getLinks().keySet()){
 				
-				int agents = 0;
-				int taxiVehicles = 0;
-				int otherVehicles = 0;
-				
+				double volume = 0.;
 				if (this.linkId2demand.get(linkId) != null) {
-					agents = this.linkId2demand.get(linkId);
+					volume = this.linkId2demand.get(linkId);
 				}
-				
-				if (this.linkId2specificVehicles.get(linkId) != null) {
-					taxiVehicles = this.linkId2specificVehicles.get(linkId);
-				}
-				
-				if (this.linkId2otherVehicles.get(linkId) != null) {
-					otherVehicles = this.linkId2otherVehicles.get(linkId);
-				}
-				
-				bw.write(linkId + ";" + agents + ";" + taxiVehicles + ";" + otherVehicles);
+				bw.write(linkId + ";" + volume);
 				bw.newLine();
 			}
 			
