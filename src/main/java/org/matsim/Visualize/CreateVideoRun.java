@@ -23,16 +23,18 @@ import java.io.IOException;
 
 /**
 * @author teoal customizing ikaddoura
+* 
+* Utilizza MATSimVideoUtils, che crea un video a partire dai file png delle iterazioni
 */
 
 public class CreateVideoRun {
 
-	private static final String runDirectory = "/Users/ihab/Desktop/ils4a/ziemke/open_berlin_scenario/output/be400mt_58_v6/";
-	private static final String runId = "be400mt_58_v6";
+	private static final String runDirectory = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/";
+	private static final String runId = "AT03";
 
 	public static void main(String[] args) throws IOException {
 //		MATSimVideoUtils.createVideo(runDirectory, 10, "tolls");
-		MATSimVideoUtils.createLegHistogramVideo(runDirectory, runId, "/Users/ihab/Desktop/video");
+		MATSimVideoUtils.createLegHistogramVideo(runDirectory, runId, "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03");
 	}
 	
 }

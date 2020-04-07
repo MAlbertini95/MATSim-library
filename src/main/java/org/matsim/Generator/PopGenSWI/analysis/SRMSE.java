@@ -1,10 +1,9 @@
 /* *********************************************************************** *
  * project: org.matsim.*
- * OTFVis.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -18,30 +17,45 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Visualize;
+package org.matsim.Generator.PopGenSWI.analysis;
 
-import org.matsim.contrib.otfvis.OTFVis;
-import org.matsim.vis.otfvis.OTFClientFile;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.indexing.INDArrayIndex;
+import org.nd4j.linalg.indexing.NDArrayIndex;
 
-/**
- * @author teoal 
- * 
- * MovieFileCreator crea il file OTF in base agli eventi, MyOTFClientFile permette di impostare le configurazioni, e poi qui si avvia la riproduzione del file
- */
-
-public class MovieFilePlayer {
+public class SRMSE {
+	final INDArray reference;
+	final INDArray sampleCounts;
 	
-	public static void main(String[] args) {
-		// Parameters
-		String mviFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/otfvis.mvi";
-		boolean createScreenshots = true; // Snapshots will be stored at run directory
+	public SRMSE(INDArray reference) {
+		this.reference = reference;
+		this.sampleCounts = Nd4j.zeros(reference.shape());
+	}
+	
+	public void addSample(int[] sample) {
+		INDArrayIndex[] index = new INDArrayIndex[sample.length];
 		
-		// Run
-		if (createScreenshots == false) {
-			OTFVis.playMVI(mviFile);
-		} else {
-//			new OTFClientFile(mviFile).run();
-			new MyOTFClientFile(mviFile).run();
+		for (int i = 0; i < sample.length; i++) {
+			index[i] = NDArrayIndex.point(sample[i]);
 		}
+		
+		sampleCounts.get(index).addi(1.0);
+	}
+	
+	public double compute() {
+		INDArray referenceFrequencies = reference.div(reference.sumNumber());
+		INDArray sampleFrequencies = sampleCounts.div(sampleCounts.sumNumber());
+		
+		INDArray difference = referenceFrequencies.sub(sampleFrequencies);
+		difference = difference.mul(difference);
+		
+		double value = Math.sqrt(difference.sumNumber().doubleValue());
+		
+		for (int i = 0; i < reference.shape().length; i++) {
+			value *= Math.sqrt(reference.shape()[i]);
+		}
+		
+		return value;
 	}
 }

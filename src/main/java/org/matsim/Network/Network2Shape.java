@@ -47,7 +47,7 @@ public class Network2Shape {
 
 	public static void exportNetwork2Shp(Scenario scenario, String outputDirectory, String scenarioCrs, CoordinateTransformation ct){
 		
-		String outputPath = outputDirectory + "network-shp/";
+		String outputPath = "C:/Users/teoal/Desktop/MATSIM Milano/Network/";
 		File file = new File(outputPath);
 		file.mkdirs();
 		

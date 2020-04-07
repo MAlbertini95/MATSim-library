@@ -1,10 +1,9 @@
 /* *********************************************************************** *
  * project: org.matsim.*
- * OTFVis.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -18,30 +17,42 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Visualize;
+package org.matsim.Generator.PopGenSWI;
 
-import org.matsim.contrib.otfvis.OTFVis;
-import org.matsim.vis.otfvis.OTFClientFile;
+import java.util.Random;
 
-/**
- * @author teoal 
- * 
- * MovieFileCreator crea il file OTF in base agli eventi, MyOTFClientFile permette di impostare le configurazioni, e poi qui si avvia la riproduzione del file
- */
+import org.matsim.Generator.PopGenSWI.gibbs.GibbsAlgorithm;
+import org.matsim.Generator.PopGenSWI.gibbs.GibbsProblemFromCounts;
+import org.matsim.Generator.PopGenSWI.gibbs.GibbsSampler;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
 
-public class MovieFilePlayer {
-	
-	public static void main(String[] args) {
-		// Parameters
-		String mviFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/otfvis.mvi";
-		boolean createScreenshots = true; // Snapshots will be stored at run directory
+public class RunGibbs {
+	static public void main(String[] args) {
+		INDArray counts = Nd4j.create(new double[] {
+				20.0, 40.0, 40.0, 15.0,
+				22.0, 0.0, 38.0, 12.0,
+				
+				20.0, 40.0, 0.0, 15.0,
+				22.0, 45.0, 38.0, 12.0
+			}, new int[] { 2, 4, 2 });
 		
-		// Run
-		if (createScreenshots == false) {
-			OTFVis.playMVI(mviFile);
-		} else {
-//			new OTFClientFile(mviFile).run();
-			new MyOTFClientFile(mviFile).run();
+		Random random = new Random(0);
+		
+		GibbsProblemFromCounts problem = new GibbsProblemFromCounts(counts);
+		problem.chooseRandomInitialSample(random);
+		
+		GibbsAlgorithm algorithm = new GibbsAlgorithm(problem, random);
+		GibbsSampler sampler = new GibbsSampler(algorithm, 100, 1000);
+		
+		for (int i = 0; i < 1000; i++) {
+			int[] sample = sampler.sample();
+			
+			for (int j = 0; j < sample.length; j++) {
+				System.out.print(sample[j] + " ");
+			}
+			
+			System.out.println("");
 		}
 	}
 }

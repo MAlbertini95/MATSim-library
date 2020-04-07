@@ -52,7 +52,7 @@ public class NetworkModifier {
         ptMode.add(TransportMode.pt);
         transportModeNetworkFilterPt.filter(ptScenario.getNetwork(), ptMode);
 
-        for (Link link : new ArrayList<>(scenario.getNetwork().getLinks().values())) {
+/*       for (Link link : new ArrayList<>(scenario.getNetwork().getLinks().values())) {
             if (link.getAllowedModes().contains(TransportMode.car)) {
                 String type = link.getAttributes().getAttribute("type").toString();
                 if (type.equals("tertiary") || type.equals("tertiary_link") || type.equals("unclassified")
@@ -60,7 +60,7 @@ public class NetworkModifier {
                     scenario.getNetwork().removeLink(link.getId());
                 }
             }
-        }
+        } */
 
         NetworkCleaner networkCleaner = new NetworkCleaner();
         networkCleaner.run(scenario.getNetwork());

@@ -58,7 +58,7 @@ public class RunReLocation {
 	private static String planFile;
 	private static String shapeFile;
 	private static String output;
-	private static final String outPutCRS = "EPSG:31468";
+	private static final String outPutCRS = "EPSG:32632";
 	private static final Logger log = Logger.getLogger(RunReLocation.class);
 	private static final Random random = new Random(55332654);
 

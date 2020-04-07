@@ -32,12 +32,12 @@ public class OSMNetworkCreator {
 
 	public static void main(String[] args) {
 		// Input and output
-		String osmFile = "Path to OSM file/file.osm";
-		String networkFile = "PAth to output network file/file.xml";
+		String osmFile = "C:/Users/teoal/Desktop/MATSIM Milano/Milano_MATSim.osm"; 
+		String networkFile = "C:/Users/teoal/Desktop/MATSIM Milano/Network/MilanoMATSim_NEW_3857.xml";
 		
 		// Parameters
-		String inputCRS = "EPSG:4326"; // WGS84
-		String outputCRS = "EPSG:31468"; // DHDN GK4, for Berlin; DE
+		String inputCRS = "EPSG:4326"; // EPSG:4326 scaricati da OSM, fare attenzione 
+		String outputCRS = "EPSG:3857"; // EPSG:6707 Shp Milano; EPSG:32632 Milano OpenData; EPSG:3857 base; EPSG:25382 Trento
 //		String outputCRS = TransformationFactory.WGS84_SA_Albers;
 
 		// Infrastructure
@@ -48,7 +48,7 @@ public class OSMNetworkCreator {
 		OsmNetworkReader osmNetworkReader = new OsmNetworkReader(network, coordinateTransformation, false);
 
 		// Set values
-		osmNetworkReader.setHighwayDefaults(1, "motorway",      2, 100.0/3.6, 1.0, 2000, true); // 100 instead of 120
+		osmNetworkReader.setHighwayDefaults(1, "motorway",      2, 110.0/3.6, 1.0, 2000, true); // 100 instead of 120
 		osmNetworkReader.setHighwayDefaults(1, "motorway_link", 1,  80.0/3.6, 1.0, 1500, true);
 		osmNetworkReader.setHighwayDefaults(2, "trunk",         1,  80.0/3.6, 1.0, 2000);
 		osmNetworkReader.setHighwayDefaults(2, "trunk_link",    1,  50.0/3.6, 1.0, 1500);
@@ -61,7 +61,17 @@ public class OSMNetworkCreator {
 		// additional to defaults
 		osmNetworkReader.setHighwayDefaults(4, "secondary_link", 1, 60.0/3.6, 1.0, 1000); // same values as "secondary"
 		osmNetworkReader.setHighwayDefaults(5, "tertiary_link", 1, 45.0/3.6, 1.0,  600); // same values as "tertiary"
+		osmNetworkReader.setHighwayDefaults(6, "unclassified", 1, 40.0/3.6, 1.0,  600);  
+		osmNetworkReader.setHighwayDefaults(6, "residential", 1, 30.0/3.6, 1.0,  600);  
+		osmNetworkReader.setHighwayDefaults(6, "service", 1, 20.0/3.6, 1.0,  300); 
+//		osmNetworkReader.setHighwayDefaults(5, "living_street", 1, 45.0/3.6, 1.0,  600);  
+//		osmNetworkReader.setHighwayDefaults(5, "minor", 1, 45.0/3.6, 1.0,  600);  
 
+		// additional to defaults
+		osmNetworkReader.setHighwayDefaults(4, "secondary_link", 1, 60.0/3.6, 1.0, 1000); // same values as "secondary"
+		osmNetworkReader.setHighwayDefaults(5, "tertiary_link", 1, 45.0/3.6, 1.0,  600); // same values as "tertiary"
+		osmNetworkReader.setHighwayDefaults(6, "unclassified", 1, 40.0/3.6, 1.0,  600);  
+		
 		// Read OSM file
 		osmNetworkReader.parse(osmFile); 
 		new NetworkCleaner().run(network);

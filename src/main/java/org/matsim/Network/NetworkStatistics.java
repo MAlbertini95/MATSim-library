@@ -33,7 +33,7 @@ public class NetworkStatistics {
 
 	public static void main(String[] args) {
 		Network network = NetworkUtils.createNetwork();
-		new MatsimNetworkReader(network).readFile("C:/Users/Felix/Documents/VSP/Berlin-Netz/merged-filtered.xml");
+		new MatsimNetworkReader(network).readFile("C:/Users/teoal/Desktop/MATSIM Milano/Network/MilanoHinterland_High_Railway_6707.xml");
 		       
         int noFsTag =0;
         int fsTag=0;
@@ -180,7 +180,7 @@ public class NetworkStatistics {
 		residentialShare=(double)residentialFsTag/(double)residential;
 		livingStreetShare=(double)livingStreetFsTag/(double)livingStreet;
 		
-		File file = new File( "Path to output network stats/FreespeedTagsStatistics.xml");
+		File file = new File( "C:/Users/teoal/Desktop/MATSIM Milano/Network/FreespeedTagsStatistics.xml");
  		try {
  			BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
  		

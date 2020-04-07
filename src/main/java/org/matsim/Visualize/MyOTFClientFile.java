@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 
 import org.matsim.vis.otfvis.gui.OTFVisFrame;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
+import org.matsim.vis.otfvis.OTFVisConfigGroup.ColoringScheme;
 import org.matsim.vis.otfvis.data.OTFClientQuadTree;
 import org.matsim.vis.otfvis.data.OTFConnectionManager;
 import org.matsim.vis.otfvis.data.OTFServerQuadTree;
@@ -74,7 +75,15 @@ public class MyOTFClientFile implements Runnable {
 		otfVisConfig.setRenderImages(true);
 		// end new
 //		otfVisConfig.setRenderImages(true);
-//		otfVisConfig.addParam("agentSize", "60.f");
+		otfVisConfig.addParam("agentSize", "50.f"); //Initial size of the agents. Only a range of numbers is allowed, otherwise otfvis aborts or displays no agents
+		otfVisConfig.addParam("linkWidth", "10.f"); //Initial) width of the links of the network. Use positive floating point values."
+		otfVisConfig.addParam("drawTransitFacilities", "true"); 
+		otfVisConfig.addParam("drawTransitFacilityIds", "false");
+		otfVisConfig.addParam("drawNonMovingItems", "false"); //If non-moving items (e.g. agents at activities, at bus stops, etc.) should be showed
+		otfVisConfig.addParam("linkwidthIsProportionalTo", "numberOfLanes"); //otherwise could be "capacity"
+		otfVisConfig.addParam("coloringScheme", "taxicab");		
+//		ColoringScheme coloring = ColoringScheme.taxicab; //possible values { standard, bvg, bvg2, byId, gtfs, taxicab }
+//		otfVisConfig.setColoringScheme(coloring);
 		OTFConnectionManager connect = new OTFConnectionManager();
 		connect.connectWriterToReader(OTFLinkAgentsHandler.Writer.class, OTFLinkAgentsHandler.class);
 		connect.connectWriterToReader(OTFAgentsListHandler.Writer.class, OTFAgentsListHandler.class);

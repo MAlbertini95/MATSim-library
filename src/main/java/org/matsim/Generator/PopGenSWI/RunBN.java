@@ -1,10 +1,9 @@
 /* *********************************************************************** *
  * project: org.matsim.*
- * OTFVis.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -18,30 +17,46 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Visualize;
+package org.matsim.Generator.PopGenSWI;
 
-import org.matsim.contrib.otfvis.OTFVis;
-import org.matsim.vis.otfvis.OTFClientFile;
+import java.util.Random;
 
-/**
- * @author teoal 
- * 
- * MovieFileCreator crea il file OTF in base agli eventi, MyOTFClientFile permette di impostare le configurazioni, e poi qui si avvia la riproduzione del file
- */
+import org.matsim.Generator.PopGenSWI.bn.BNAlgorithm;
+import org.matsim.Generator.PopGenSWI.bn.BNGraph;
+import org.matsim.Generator.PopGenSWI.bn.BNGraphGenerator;
+import org.matsim.Generator.PopGenSWI.bn.BNProblem;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
 
-public class MovieFilePlayer {
-	
+public class RunBN {
 	public static void main(String[] args) {
-		// Parameters
-		String mviFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/otfvis.mvi";
-		boolean createScreenshots = true; // Snapshots will be stored at run directory
+		Random random = new Random(0);
+		BNGraphGenerator generator = new BNGraphGenerator(random);
 		
-		// Run
-		if (createScreenshots == false) {
-			OTFVis.playMVI(mviFile);
-		} else {
-//			new OTFClientFile(mviFile).run();
-			new MyOTFClientFile(mviFile).run();
+		BNGraph graph = generator.generate(3);
+		
+		INDArray counts = Nd4j.create(new double[] {
+				20.0, 40.0, 40.0, 15.0,
+				22.0, 0.0, 38.0, 12.0,
+				
+				20.0, 40.0, 40.0, 15.0,
+				22.0, 0.0, 38.0, 12.0
+			}, new int[] { 2, 4, 2 });
+		
+		BNProblem problem = new BNProblem(counts);
+		//System.out.println(problem.getCounts(1, new int[] { 0, 2 }));
+		
+		BNAlgorithm algorithm = new BNAlgorithm(graph, problem, new Random(0));
+		
+		for (int i = 0; i < 1000; i++) {
+			int[] sample = algorithm.next();
+			
+			for (int j = 0; j < sample.length; j++) {
+				System.out.print(sample[j] + " ");
+			}
+			System.out.println("");
 		}
+		
+		
 	}
 }

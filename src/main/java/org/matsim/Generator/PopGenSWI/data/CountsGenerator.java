@@ -1,10 +1,9 @@
 /* *********************************************************************** *
  * project: org.matsim.*
- * OTFVis.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -18,30 +17,45 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Visualize;
+package org.matsim.Generator.PopGenSWI.data;
 
-import org.matsim.contrib.otfvis.OTFVis;
-import org.matsim.vis.otfvis.OTFClientFile;
 
-/**
- * @author teoal 
- * 
- * MovieFileCreator crea il file OTF in base agli eventi, MyOTFClientFile permette di impostare le configurazioni, e poi qui si avvia la riproduzione del file
- */
+import java.util.List;
 
-public class MovieFilePlayer {
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.indexing.INDArrayIndex;
+import org.nd4j.linalg.indexing.NDArrayIndex;
+
+public class CountsGenerator {
+	public INDArray getCounts(List<List<Integer>> data) {
+		return getCounts(data, data);
+	}
 	
-	public static void main(String[] args) {
-		// Parameters
-		String mviFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/otfvis.mvi";
-		boolean createScreenshots = true; // Snapshots will be stored at run directory
+	public INDArray getCounts(List<List<Integer>> data, List<List<Integer>> full) {
+		int numberOfDimensions = data.get(0).size();
+		int[] numberOfCategories = new int[numberOfDimensions];
 		
-		// Run
-		if (createScreenshots == false) {
-			OTFVis.playMVI(mviFile);
-		} else {
-//			new OTFClientFile(mviFile).run();
-			new MyOTFClientFile(mviFile).run();
+		for (List<Integer> row : full) {
+			for (int i = 0; i < numberOfDimensions; i++) {
+				numberOfCategories[i] = Math.max(numberOfCategories[i], row.get(i) + 1);
+			}
 		}
+		
+		INDArray counts = Nd4j.zeros(numberOfCategories);
+		
+		for (List<Integer> row : data) {
+			INDArrayIndex[] writeIndex = new INDArrayIndex[numberOfDimensions];
+			int[] readIndex = new int[numberOfDimensions];
+			
+			for (int i = 0; i < numberOfDimensions; i++) {
+				writeIndex[i] = NDArrayIndex.point(row.get(i));
+				readIndex[i] = row.get(i);
+			}
+			
+			counts.put(writeIndex, counts.getDouble(readIndex) + 1.0);
+		}
+		
+		return counts;
 	}
 }

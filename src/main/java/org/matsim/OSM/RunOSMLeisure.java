@@ -20,27 +20,25 @@
 package org.matsim.OSM;
 
 import org.matsim.contrib.accessibility.osm.AmenityReader;
-import org.matsim.core.controler.OutputDirectoryLogging;
 import org.matsim.core.utils.geometry.CoordinateTransformation;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class RunOSMLeisure {
 
     public static void main(String[] args) {
 
-        String root = "D:/Arbeit/Berlin/ReLocation/";
+        String root = "C:/Users/teoal/Desktop/MATSim Milano/";
 
-//        String inputOSMFile = root + "brandenburg-berlin-latest.osm_01.osm";
-        String inputOSMFile = root + "berlin-latest.osm_01.osm";
-//        String outputFacilityFile = root + "facilities.xml.gz";
-        String outputFacilityFile = root + "MyOwnFacilities.xml";
+//      String inputOSMFile = root + "brandenburg-berlin-latest.osm_01.osm";
+        String inputOSMFile = root + "Milano.osm";
+//      String outputFacilityFile = root + "facilities.xml.gz";
+        String outputFacilityFile = root + "/Facility/Milano_Facilities.xml";
 
-        String newCoord = "DHDN_GK4";
+        String newCoord = "EPSG:3857";
 
-        CoordinateTransformation coordinateTransformation = TransformationFactory.getCoordinateTransformation("WGS84", newCoord);
+        CoordinateTransformation coordinateTransformation = TransformationFactory.getCoordinateTransformation("WGS84", newCoord);  //Verificare, potrebbe dare problemi, potrebbe essere necessario definire nuovi set di trasformazione coordinate
         AmenityReader amenityReader = new AmenityReader(inputOSMFile, coordinateTransformation, OSMKeyForLeisure.buildOsmAllLeisureToMatsimTypeMap(), true);
 
         try {

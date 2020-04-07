@@ -55,13 +55,13 @@ public class Links2Shape {
 	 */
 	public static void main(String[] args) {
 		
-		String defaultCRS = "EPSG:3857";
+		String defaultCRS = "EPSG:3857"; // EPSG:6707 Shp Milano; EPSG:32632 Milano OpenData; EPSG:3857 base; EPSG:25382 Trento
 		boolean commonWealth = true ;
 		
-		String outputFilePath = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/CALIBRAZIONE/Trento_Calibrated/CalibratedNetwork.shp" ;
+		String outputFilePath = "C:/Users/teoal/Desktop/MATSIM Milano/Network/" ;
 		
 		Config config = ConfigUtils.createConfig() ;
-		config.network().setInputFile( "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/CALIBRAZIONE/Trento_Calibrated/ModalShare.output_network.xml.gz" );
+		config.network().setInputFile( "C:/Users/teoal/Desktop/MATSIM Milano/Network/Milano_MATSim_OSM_3857.xml" );
 		Scenario scenario = ScenarioUtils.loadScenario( config ) ;
 		
 		final Map<Id,Double> ttimeSums = new HashMap<Id,Double>() ;
@@ -94,7 +94,7 @@ public class Links2Shape {
 					}
 				}
 			}
-		} );
+		} ); 
 		
 		
 		new MatsimEventsReader(events).readFile( "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/CALIBRAZIONE/Trento_Calibrated/ModalShare.output_events.xml.gz" );
@@ -114,7 +114,7 @@ public class Links2Shape {
 				newNetwork.addNode( link.getToNode() );
 				newNetwork.addLink(newLink);
 			}
-		}
+		} 
 		
 
 		FeatureGeneratorBuilderImpl builder = new FeatureGeneratorBuilderImpl( newNetwork , defaultCRS);

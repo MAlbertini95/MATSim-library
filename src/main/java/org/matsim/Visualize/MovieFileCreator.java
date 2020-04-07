@@ -31,6 +31,7 @@ import org.matsim.vis.otfvis.OTFEvent2MVI;
 /**
  * @author teoal
  * 
+ * Crea un file .mvi per OTFvis in base agli eventi, successivamente si può riprodurre con MovieFilePlayer
  */
 
 public class MovieFileCreator {
@@ -38,12 +39,12 @@ public class MovieFileCreator {
 
 	public static void main(String[] args) {
 		// Parameter
-		String runOutputRoot = "Path to Output/Out Folder";
+		String runOutputRoot = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/Trento_Calibrated/";
 		double snapshotPeriod = 60;
 		
 		// Prende il percorso e cerca ivi i Files
-		String eventFile = runOutputRoot + "/output_events.xml.gz";
-		String networkFile = runOutputRoot + "/output_network.xml.gz";
+		String eventFile = runOutputRoot + "/AT03.output_events.xml.gz";
+		String networkFile = runOutputRoot + "/AT03.output_network.xml.gz";
 		String mviFile = runOutputRoot + "/otfvis.mvi";
 
 		// Add network to scenario

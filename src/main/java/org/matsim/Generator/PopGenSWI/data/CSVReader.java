@@ -1,10 +1,9 @@
 /* *********************************************************************** *
  * project: org.matsim.*
- * OTFVis.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -18,30 +17,52 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Visualize;
+package org.matsim.Generator.PopGenSWI.data;
 
-import org.matsim.contrib.otfvis.OTFVis;
-import org.matsim.vis.otfvis.OTFClientFile;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-/**
- * @author teoal 
- * 
- * MovieFileCreator crea il file OTF in base agli eventi, MyOTFClientFile permette di impostare le configurazioni, e poi qui si avvia la riproduzione del file
- */
-
-public class MovieFilePlayer {
+public class CSVReader {
+	final private String separator;
 	
-	public static void main(String[] args) {
-		// Parameters
-		String mviFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/otfvis.mvi";
-		boolean createScreenshots = true; // Snapshots will be stored at run directory
+	public CSVReader(String separator) {
+		this.separator = separator;
+	}
+	
+	public List<List<Integer>> load(File path, List<String> columns) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
 		
-		// Run
-		if (createScreenshots == false) {
-			OTFVis.playMVI(mviFile);
-		} else {
-//			new OTFClientFile(mviFile).run();
-			new MyOTFClientFile(mviFile).run();
-		}
+		String line = null;
+		List<String> header = null;
+		List<String> row = null;
+		
+		List<List<Integer>> data = new LinkedList<>();
+		
+		while ((line = reader.readLine()) != null) {
+			row = Arrays.asList(line.split(separator));
+			
+			if (header == null) {
+				header = row;
+			} else {
+				List<Integer> dataRow = new ArrayList<>(columns.size());
+				
+				for (String column : columns) {
+					dataRow.add(Integer.parseInt(row.get(header.indexOf(column))));
+				}
+				
+				data.add(dataRow);
+			}
+		}		
+		
+		reader.close();
+		
+		return data;
 	}
 }

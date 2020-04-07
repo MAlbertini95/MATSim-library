@@ -38,7 +38,7 @@ public class MATSimVideoUtils {
 	private static final Logger log = Logger.getLogger(MATSimVideoUtils.class);
 
 	public static void createLegHistogramVideo(String runDirectory, String runId, String outputDirectory) throws IOException {
-		createVideo(runDirectory, runId, outputDirectory, 1, "legHistogram_all");
+		createVideo(runDirectory, runId, outputDirectory, 10, "legHistogram_all");
 	}
 	
 	public static void createLegHistogramVideo(String runDirectory) throws IOException {

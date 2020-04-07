@@ -51,8 +51,7 @@ import org.matsim.core.utils.collections.Tuple;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 
 /**
- * 
- * Provides several analysis:
+ *  * Provides several analysis:
  * 
  * - some aggregated analysis 
  * - person-specific information

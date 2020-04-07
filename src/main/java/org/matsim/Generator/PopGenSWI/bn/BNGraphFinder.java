@@ -1,10 +1,9 @@
 /* *********************************************************************** *
  * project: org.matsim.*
- * OTFVis.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -18,30 +17,47 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Visualize;
+package org.matsim.Generator.PopGenSWI.bn;
 
-import org.matsim.contrib.otfvis.OTFVis;
-import org.matsim.vis.otfvis.OTFClientFile;
+import java.util.List;
+import java.util.Random;
 
-/**
- * @author teoal 
- * 
- * MovieFileCreator crea il file OTF in base agli eventi, MyOTFClientFile permette di impostare le configurazioni, e poi qui si avvia la riproduzione del file
- */
+import org.nd4j.linalg.api.ndarray.INDArray;
 
-public class MovieFilePlayer {
+public class BNGraphFinder {
+	final private BNGraphGenerator generator;
+	final private INDArray counts;
+	final private List<List<Integer>> data;
+	final private Random random;
 	
-	public static void main(String[] args) {
-		// Parameters
-		String mviFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/otfvis.mvi";
-		boolean createScreenshots = true; // Snapshots will be stored at run directory
+	public BNGraphFinder(BNGraphGenerator generator, INDArray counts, List<List<Integer>> data, Random random) {
+		this.generator = generator;
+		this.counts = counts;
+		this.data = data;
+		this.random = random;
+	}
+	
+	public BNGraph findGraph(int numberOfIterations) {
+		BNGraph bestGraph = null;
+		double bestScore = Double.NEGATIVE_INFINITY;
 		
-		// Run
-		if (createScreenshots == false) {
-			OTFVis.playMVI(mviFile);
-		} else {
-//			new OTFClientFile(mviFile).run();
-			new MyOTFClientFile(mviFile).run();
+		for (int i = 0; i < numberOfIterations; i++) {
+			BNGraph graph = generator.generate(data.get(0).size());
+
+			BNProblem problem = new BNProblem(counts);
+			BNAlgorithm algorithm = new BNAlgorithm(graph, problem, random);
+
+			double logLikelihood = algorithm.computeLogLikelihood(data);
+			double score = logLikelihood;// - algorithm.getNumberOfParameters();
+			
+			if (score > bestScore) {
+				bestGraph = graph;
+				bestScore = score;
+				
+				System.out.println("AIC: " + score + ", Graph: " + bestGraph);
+			}
 		}
+		
+		return bestGraph;	
 	}
 }

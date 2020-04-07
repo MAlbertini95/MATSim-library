@@ -1,10 +1,9 @@
 /* *********************************************************************** *
- * project: org.matsim.*
- * OTFVis.java
+ * project: org.matsim.*												   *
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ * copyright       : (C) 2008 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -18,30 +17,26 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Visualize;
+package org.matsim.Network;
 
-import org.matsim.contrib.otfvis.OTFVis;
-import org.matsim.vis.otfvis.OTFClientFile;
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.core.config.Config;
+import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.scenario.ScenarioUtils;
+import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 
 /**
- * @author teoal 
- * 
- * MovieFileCreator crea il file OTF in base agli eventi, MyOTFClientFile permette di impostare le configurazioni, e poi qui si avvia la riproduzione del file
- */
+* @author ikaddoura
+*/
 
-public class MovieFilePlayer {
-	
+public class WriteNetwork2ShapeFile {
+
 	public static void main(String[] args) {
-		// Parameters
-		String mviFile = "C:/Users/teoal/Politecnico di Milano 1863/MAGISTRALE/Tesi/MAAS Trento/AT_5000_03/otfvis.mvi";
-		boolean createScreenshots = true; // Snapshots will be stored at run directory
-		
-		// Run
-		if (createScreenshots == false) {
-			OTFVis.playMVI(mviFile);
-		} else {
-//			new OTFClientFile(mviFile).run();
-			new MyOTFClientFile(mviFile).run();
-		}
+		Config config = ConfigUtils.createConfig();
+		config.network().setInputFile("C:/Users/teoal/Desktop/MATSIM Milano/Network/Milano_MATSim_3857.xml");
+		config.global().setCoordinateSystem("EPSG:3857");
+		Scenario scenario = ScenarioUtils.loadScenario(config);
+		Network2Shape.exportNetwork2Shp(scenario, "./scenarios/", "EPSG:3857", TransformationFactory.getCoordinateTransformation("EPSG:3857", "EPSG:3857"));
 	}
+
 }

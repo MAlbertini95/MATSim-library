@@ -34,13 +34,13 @@ public class RunOSMActivities {
 
 //       String root = "D:/Arbeit/Berlin/ReLocation/Test/";
 //    	 String root = "D:/Arbeit/Berlin/ReLocation/exception/";
-       String inputOSMFile = "Path to input OSMroot.osm";
+       String inputOSMFile = "C:/Users/teoal/Desktop/MATSim Milano/";
 //        String inputOSMFile = args[0];
 //        String outputFacilityFile = root + "facilities.xml.gz";
 //        String outputFacilityFile = root + "combinedFacilities-test1.xml";
 //        String attributeFile = root + "attributeFile-test1.xml";      
-        String outputFacilityFile = "./combinedFacilities-test1.xml";
-        String attributeFile = "./attributeFile-test1.xml";
+        String outputFacilityFile = "C:/Users/teoal/Desktop/MATSim Milano/Facility/Milano_facilities.xml";
+        String attributeFile = "C:/Users/teoal/Desktop/MATSim Milano/Facility/attributeFile-test1.xml";
         
         OutputDirectoryLogging.catchLogEntries();
         try {
@@ -49,8 +49,8 @@ public class RunOSMActivities {
         e1.printStackTrace();
         }
         
-        String newCoord = args[1];
-//        String newCoord = "EPSG:31468";
+/*     String newCoord = args[1]; */
+        String newCoord = "EPSG:32632";
         
         CombinedOsmReader activitiesReader = new CombinedOsmReader(newCoord,
                 AccessibilityFacilityUtils.buildOsmLandUseToMatsimTypeMap(),

@@ -25,9 +25,7 @@ import org.matsim.core.controler.AbstractModule;
  * @author  jbischoff
  *
  */
-/**
- *
- */
+
 public class TripHistogramModule extends AbstractModule {
 	@Override
 	public void install() {
