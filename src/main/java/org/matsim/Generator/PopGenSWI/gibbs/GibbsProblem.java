@@ -1,9 +1,9 @@
 /* *********************************************************************** *
- * project: org.matsim.*												   *
+ * project: org.matsim.*
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008 by the members listed in the COPYING,        *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -17,26 +17,11 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Network;
+package org.matsim.Generator.PopGenSWI.gibbs;
 
-import org.matsim.api.core.v01.Scenario;
-import org.matsim.core.config.Config;
-import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.core.utils.geometry.transformations.TransformationFactory;
+import org.nd4j.linalg.api.ndarray.INDArray;
 
-/**
-* @author teoal
-*/
-
-public class WriteNetwork2ShapeFile {
-
-	public static void main(String[] args) {
-		Config config = ConfigUtils.createConfig();
-		config.network().setInputFile("C:/Users/teoal/Desktop/MATSIM Milano/Network/Milano_MATSim_3857.xml");
-		config.global().setCoordinateSystem("EPSG:3857");
-		Scenario scenario = ScenarioUtils.loadScenario(config);
-		Network2Shape.exportNetwork2Shp(scenario, "./scenarios/", "EPSG:3857", TransformationFactory.getCoordinateTransformation("EPSG:3857", "EPSG:3857"));
-	}
-
+public interface GibbsProblem {
+	INDArray getProbabilities(int dimension, int[] conditionals);
+	int[] getInitialSample();
 }

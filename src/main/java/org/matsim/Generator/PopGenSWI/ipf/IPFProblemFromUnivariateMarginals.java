@@ -1,9 +1,9 @@
 /* *********************************************************************** *
- * project: org.matsim.*												   *
+ * project: org.matsim.*
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008 by the members listed in the COPYING,        *
+ * copyright       : (C) 2016 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -17,26 +17,46 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.Network;
+package org.matsim.Generator.PopGenSWI.ipf;
 
-import org.matsim.api.core.v01.Scenario;
-import org.matsim.core.config.Config;
-import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.core.utils.geometry.transformations.TransformationFactory;
+import org.nd4j.linalg.api.ndarray.INDArray;
 
-/**
-* @author teoal
-*/
+public class IPFProblemFromUnivariateMarginals implements IPFProblem {
+	final private INDArray[] marginals;
+	final private int[] shape;
+	
+	public IPFProblemFromUnivariateMarginals(INDArray[] marginals) {
+		this.marginals = marginals;
+		this.shape = new int[marginals.length];
+		
+		int i = 0;
+		for (INDArray marginal : marginals) {
+			if (marginal.shape().length > 2) {
+				throw new IllegalStateException();
+			}
+			
+			this.shape[i] = marginal.shape()[1];
+			i++;
+		}
+	}
+	
+	@Override
+	public Number getMarginalCounts(int[] dimensions, int[] categories) {
+		if (dimensions.length > 1 || categories.length > 1) {
+			throw new IllegalStateException();
+		}
+		
+		return marginals[dimensions[0]].getDouble(categories[0]);
+	}
 
-public class WriteNetwork2ShapeFile {
+	@Override
+	public int[] getShape() {
+		return shape;
+	}
 
-	public static void main(String[] args) {
-		Config config = ConfigUtils.createConfig();
-		config.network().setInputFile("C:/Users/teoal/Desktop/MATSIM Milano/Network/Milano_MATSim_3857.xml");
-		config.global().setCoordinateSystem("EPSG:3857");
-		Scenario scenario = ScenarioUtils.loadScenario(config);
-		Network2Shape.exportNetwork2Shp(scenario, "./scenarios/", "EPSG:3857", TransformationFactory.getCoordinateTransformation("EPSG:3857", "EPSG:3857"));
+	@Override
+	public int[] getLevels() {
+		return new int[] { 1 };
 	}
 
 }
